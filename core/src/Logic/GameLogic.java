@@ -5,12 +5,12 @@ import Logic.GameObject.*;
 /**
  * Created by landfried on 30.01.17.
  */
-public class GameLogic {
-    public boolean run;
+public class GameLogic implements Runnable {
+    public boolean running;
     private GameObjectContainer gameObjectContainer;
 
     public GameLogic() {
-        run = true;
+        running = true;
         gameObjectContainer = new GameObjectContainer();
 
     }
@@ -41,14 +41,23 @@ public class GameLogic {
         gameObjectContainer.updateSettlers();
         gameObjectContainer.updateBuildings();
 
-        run = false;
+        running = false;
     }
 
     public void createNation() {
         gameObjectContainer.createNation();
     }
 
+    public GameObjectContainer getGameObjectContainer() {
+        return gameObjectContainer;
+    }
 
+    @Override
+    public void run() {
+        init();
 
-
+        while (running) {
+            update();
+        }
+    }
 }

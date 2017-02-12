@@ -23,6 +23,7 @@ public class SettlerCarrier extends Settler {
 
     }
 
+    // sollten nciht sowieso nur SettlerCarrier MissionCarriers bekommen und für alles andere genau so?
     @Override
     public boolean isCorrectMission(Mission mission) {
         return (mission instanceof MissionCarrier);

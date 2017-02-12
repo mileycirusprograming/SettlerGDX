@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import Logic.GameLogic;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -19,6 +20,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	TiledMap map;
 	OrthogonalTiledMapRenderer renderer;
 	OrthographicCamera camera = new OrthographicCamera();
+	Thread logicThread;
+	GameLogic gameLogic;
 
 	SpriteBatch batch;
 	Texture img;
@@ -42,6 +45,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		float unitScale = 1/64f;
 		renderer = new OrthogonalTiledMapRenderer(map, unitScale);
 		camera.setToOrtho(false, 20, 20);
+
+		gameLogic = new GameLogic();
+		logicThread = new Thread(gameLogic);
+		logicThread.run();
+
+
 
 
 	}

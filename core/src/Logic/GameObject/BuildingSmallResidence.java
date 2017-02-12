@@ -8,27 +8,18 @@ import java.util.Map;
  */
 public class BuildingSmallResidence extends Building {
 
+
+
     public BuildingSmallResidence() {
 
-    }
+        constructionResources.put(ResourceType.STONE, 5);
+        constructionResources.put(ResourceType.WOOD, 4);
 
+    }
 
 
     @Override
     public void update() {
     }
 
-    @Override
-    public Map<ResourceType, Integer> constructionResources() {
-        HashMap<ResourceType, Integer> resources = new HashMap<>();
-        resources.put(ResourceType.STONE, 5);
-        resources.put(ResourceType.WOOD, 4);
-        return resources;
-    }
-
-    @Override
-    public Map<ResourceType, Integer> productionResources() {
-        HashMap<ResourceType, Integer> resources = new HashMap<>();
-        return resources;
-    }
 }

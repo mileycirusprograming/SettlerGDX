@@ -2,7 +2,6 @@ package Logic.GameObject;
 
 import Logic.Mission.Mission;
 import Logic.Mission.MissionCarrier;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,39 +12,40 @@ import java.util.Map;
  * Created by landfried on 03.02.17.
  */
 public abstract class Building extends GameObject {
-    private BuildingState state;
+    protected BuildingState state;
     private List<ResourceType> shippedResources;
     private List<Resource> storedResources;
+    protected Map<ResourceType, Integer> constructionResources;
 
 
 
     public Building() {
         state = BuildingState.CONSTRUCT;
 
-        shippedResources = new ArrayList<ResourceType>();
-        storedResources = new ArrayList<Resource>();
+        shippedResources = new ArrayList<>();
+        storedResources = new ArrayList<>();
+        constructionResources = new HashMap<>();
     }
 
     public abstract void update();
 
-    public abstract Map<ResourceType, Integer> constructionResources();
-    public abstract Map<ResourceType, Integer> productionResources();
-
-
+    public Map<ResourceType, Integer> getConstructionResources(){
+        return constructionResources;
+    }
 
     public Map<ResourceType, Integer> getNeededResources() {
         switch (state) {
             case CONSTRUCT:
-                return constructionResources();
+                return getConstructionResources();
 
-            case PRODUCTION:
-                return productionResources();
+            case BUILT:
+                return new HashMap<>();
 
             case SLEEP:
-                return new HashMap<ResourceType, Integer>();
+                return new HashMap<>();
         }
 
-        return new HashMap<ResourceType, Integer>();
+        return new HashMap<>();
     }
 
     public void missionStateChanged(Mission mission) {

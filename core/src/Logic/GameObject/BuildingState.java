@@ -6,5 +6,6 @@ package Logic.GameObject;
 public enum BuildingState {
     CONSTRUCT,
     PRODUCTION,
-    SLEEP
+    SLEEP,
+    BUILT
 }
