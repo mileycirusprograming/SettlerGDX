@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import Logic.GameLogic;
+import Logic.GameObject.BuildingSmallResidence;
+import View.GameView;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -16,70 +18,37 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-	AssetManager assetManager = new AssetManager();
-	TiledMap map;
-	OrthogonalTiledMapRenderer renderer;
-	OrthographicCamera camera = new OrthographicCamera();
+
 	Thread logicThread;
 	GameLogic gameLogic;
 
-	SpriteBatch batch;
-	Texture img;
+	GameView gameView;
+
+
+
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-
-
-
-
-		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-		assetManager.load("desert.tmx", TiledMap.class);
-
-		while (!assetManager.update()){
-		}
-
-
-		map = assetManager.get("desert.tmx");
-		float unitScale = 1/64f;
-		renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-		camera.setToOrtho(false, 20, 20);
 
 		gameLogic = new GameLogic();
-		logicThread = new Thread(gameLogic);
-		logicThread.run();
+		//logicThread = new Thread(gameLogic);
+		//logicThread.run();
 
-
-
+		gameView = new GameView();
+		gameView.init();
 
 	}
 
 	@Override
 	public void render () {
 
-
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		/*
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-		*/
-
-		camera.update();
-		renderer.setView(camera);
-
-		renderer.render();
-
-
-
+		gameLogic.update();
+		gameView.update();
 
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
 	}
 }
