@@ -22,8 +22,8 @@ public abstract class Building extends GameObject {
     public Building() {
         state = BuildingState.CONSTRUCT;
 
-        shippedResources = new ArrayList<>();
-        storedResources = new ArrayList<>();
+        shippedResources = new ArrayList<ResourceType>();
+        storedResources = new ArrayList<Resource>();
     }
 
     public abstract void update();
@@ -42,10 +42,10 @@ public abstract class Building extends GameObject {
                 return productionResources();
 
             case SLEEP:
-                return new HashMap<>();
+                return new HashMap<ResourceType, Integer>();
         }
 
-        return new HashMap<>();
+        return new HashMap<ResourceType, Integer>();
     }
 
     public void missionStateChanged(Mission mission) {
