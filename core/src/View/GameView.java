@@ -23,64 +23,42 @@ public class GameView {
     AssetManager assetManager = new AssetManager();
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
-    OrthographicCamera camera = new OrthographicCamera();
+    public OrthographicCamera camera = new OrthographicCamera();
 
 
     public void init() {
         assetManager.setLoader(Texture.class, new TextureLoader(new InternalFileHandleResolver()));
-        assetManager.load("tile.png", Texture.class);
-        assetManager.load("settler.png", Texture.class);
+        assetManager.load("SettlerSprite.png", Texture.class);
+
+
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        assetManager.load("TestMap2.tmx", TiledMap.class);
 
         while (!assetManager.update()){}
 
-        map = new TiledMap();
+        map = new TmxMapLoader().load("TestMap2.tmx");
         MapLayers layers = map.getLayers();
 
-        Texture grassTexture = new Texture(Gdx.files.internal("tile.png"));
-        TextureRegion grassTextureRegion = new TextureRegion(grassTexture);
-
-        Texture settlerTexture = new Texture(Gdx.files.internal("settler.png"));
-        TextureRegion settlerTextureRegion = new TextureRegion(settlerTexture);
+        Texture settlerSprite = new Texture(Gdx.files.internal("SettlerSprite.png"));
+        TextureRegion grassTextureRegion = new TextureRegion(settlerSprite);
 
 
-
-
-        TiledMapTileLayer grassLayer = new TiledMapTileLayer(150, 100, 32, 32);
-        for (int x = 0; x < 150; x++) {
-            for (int y = 0; y < 100; y++) {
-                TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                cell.setTile(new StaticTiledMapTile(grassTextureRegion));
-                grassLayer.setCell(x, y, cell);
-            }
-        }
-        layers.add(grassLayer);
-
-        TiledMapTileLayer settlerLayer = new TiledMapTileLayer(150, 100, 32, 32);
-        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-        cell.setTile(new StaticTiledMapTile(settlerTextureRegion));
-        grassLayer.setCell(20, 20, cell);
-        layers.add(settlerLayer);
-
-
-
-
-
-        float unitScale = 1/64f;
+        float unitScale = 1/32f;
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        camera.setToOrtho(false, 20, 20);
+        camera.setToOrtho(false, map.getProperties().get("width", Integer.class), map.getProperties().get("height", Integer.class));
     }
 
 
     public void update() {
 
-        Gdx.gl.glClearColor(0, 1, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
         renderer.setView(camera);
 
-        int[] layers = {0, 1};
-        renderer.render(layers);
+        //int[] layers = {0, 1};
+        renderer.render();
 
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="TestMapSet3" tilewidth="32" tileheight="32" tilecount="6" columns="3">
+  <image source="TestMapSet3.png" width="96" height="64"/>
+ </tileset>
+ <layer name="Terrain" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztlcEKwCAMQyv4/9+8e6k2bE0jw0NA9JBnjDrMbFz9TvMAfyXDdOr2i6T2ZzKg/iwGtf8JHUCYuv0RPrW/OpuIwY8V7weyVt2DyCfyq+Lwvqv9shjQ9yLjYHVgl0vW4c4+Zn2pzGN19ow7gu6d1YmvHNVa5c7K/20efq4zi87/rKt/Vxw95ZQGQQ==
+  </data>
+ </layer>
+ <layer name="Buildings" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzrENACAMA7AKVP4/mR7AwNYOtpQlSxIBs6zKbtzPynn0U38BAAD8uKjHACE=
+  </data>
+ </layer>
+ <objectgroup name="Settler"/>
+</map>
