@@ -3,6 +3,7 @@ package View;
 import Logic.GameLogic;
 import Logic.GameObject.Building;
 import Logic.GameObject.BuildingSmallResidence;
+import Logic.GameObject.ObjectPosition;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
@@ -50,9 +51,9 @@ public class GameController implements InputProcessor {
         this.button = button;
         if (button == Input.Buttons.LEFT) {
             BuildingSmallResidence buildingSmallResidence = new BuildingSmallResidence();
-            Vector2 worldCoordinates = gameView.getWorldCoordinates(screenX, screenY);
-            buildingSmallResidence.getPosition().x = (int)worldCoordinates.x;
-            buildingSmallResidence.getPosition().y = (int)worldCoordinates.y;
+            ObjectPosition worldCoordinates = gameView.getWorldCoordinates(screenX, screenY);
+            buildingSmallResidence.getPosition().x = worldCoordinates.x;
+            buildingSmallResidence.getPosition().y = worldCoordinates.y;
             gameLogic.getGameObjectContainer().addBuilding(buildingSmallResidence);
         }
         return false;

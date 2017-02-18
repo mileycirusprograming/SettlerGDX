@@ -1,6 +1,7 @@
 package View;
 
 import Logic.GameObject.Building;
+import Logic.GameObject.ObjectPosition;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
@@ -120,15 +121,15 @@ public class GameView {
     }
 
 
-    public Vector2 getWorldCoordinates(int x, int y) {
+    public ObjectPosition getWorldCoordinates(int x, int y) {
         Vector3 vector = new Vector3();
         vector.x = x;
         vector.y = y;
         vector = camera.unproject(vector);
-        Vector2 returnVector = new Vector2();
-        returnVector.x = vector.x;
-        returnVector.y = vector.y;
-        return returnVector;
+        ObjectPosition position = new ObjectPosition();
+        position.x = (int)vector.x;
+        position.y = (int)vector.y;
+        return position;
     }
 
 
