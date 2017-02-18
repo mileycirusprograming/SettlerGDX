@@ -18,6 +18,9 @@ public class GameLogic implements Runnable {
     public void init() {
         BuildingSmallResidence smallRes1 = new BuildingSmallResidence();
         smallRes1.setNationId(0);
+        smallRes1.getPosition().x = 20;
+        smallRes1.getPosition().y = 10;
+
         SettlerCarrier car1 = new SettlerCarrier();
         car1.setNationId(0);
         Resource res1 = new Resource(ResourceType.STONE);

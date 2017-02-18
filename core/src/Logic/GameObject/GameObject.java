@@ -6,15 +6,18 @@ import java.awt.geom.Point2D;
  * Created by landfried on 30.01.17.
  */
 public abstract class GameObject {
-    private Point2D position;
+    private ObjectPosition position;
     private int nationId;
 
+    public GameObject() {
+        position = new ObjectPosition();
+    }
 
-    public Point2D getPosition() {
+    public ObjectPosition getPosition() {
         return position;
     }
 
-    public void setPosition(Point2D position) {
+    public void setPosition(ObjectPosition position) {
         this.position = position;
     }
 

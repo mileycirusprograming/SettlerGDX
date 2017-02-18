@@ -10,6 +10,7 @@ public abstract class Settler extends GameObject {
     private Mission mission;
 
     public Settler() {
+        super();
         busy = false;
 
     }

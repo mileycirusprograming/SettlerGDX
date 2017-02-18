@@ -10,7 +10,7 @@
  </layer>
  <layer name="Buildings" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztzrENACAMA7AKVP4/mR7AwNYOtpQlSxIBs6zKbtzPynn0U38BAAD8uKjHACE=
+   eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
   </data>
  </layer>
  <objectgroup name="Settler"/>

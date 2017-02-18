@@ -20,6 +20,7 @@ public abstract class Building extends GameObject {
 
 
     public Building() {
+        super();
         state = BuildingState.CONSTRUCT;
 
         shippedResources = new ArrayList<>();

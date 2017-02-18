@@ -26,6 +26,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		gameView = new GameView();
 		gameController = new GameController(gameLogic, gameView);
 
+		gameLogic.init();
 		gameView.init();
         //logicThread = new Thread(gameLogic);
         //logicThread.run();
@@ -37,7 +38,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 
-		gameLogic.update();
+		//gameLogic.update();
+		gameController.update();
 		gameView.update();
 
 	}
