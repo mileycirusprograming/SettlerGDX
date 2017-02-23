@@ -3,6 +3,7 @@ package View;
 import Logic.GameLogic;
 import Logic.GameObject.BuildingSmallResidence;
 import Logic.GameObject.ObjectPosition;
+import Logic.GameObject.SettlerCarrier;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
@@ -48,7 +49,11 @@ public class GameInput implements InputProcessor {
             ObjectPosition worldCoordinates = gameView.getWorldCoordinates(screenX, screenY);
             buildingSmallResidence.getPosition().x = worldCoordinates.x;
             buildingSmallResidence.getPosition().y = worldCoordinates.y;
-            gameLogic.getGameObjectContainer().addBuilding(buildingSmallResidence);
+            //gameLogic.getGameObjectContainer().addBuilding(buildingSmallResidence);
+            SettlerCarrier settler = new SettlerCarrier();
+            settler.getPosition().x = worldCoordinates.x;
+            settler.getPosition().y = worldCoordinates.y;
+            gameLogic.getGameObjectContainer().addSettler(settler);
         }
         return false;
     }

@@ -33,11 +33,11 @@ public class Nation {
     public void update() {
         missionControl.prepareMissions();
         missionControl.distributeMissions();
-
+/*
         System.out.println(objectAccessor.getBuildings());
         System.out.println(objectAccessor.getSettlers());
         System.out.println(missionControl.getMissions());
-
+*/
 
     }
 

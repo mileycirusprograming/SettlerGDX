@@ -6,4 +6,13 @@ package Logic.GameObject;
 public class ObjectPosition {
     public int x;
     public int y;
+
+    public ObjectPosition() {
+
+    }
+
+    public ObjectPosition(ObjectPosition objectPosition) {
+        this.x = objectPosition.x;
+        this.y = objectPosition.y;
+    }
 }

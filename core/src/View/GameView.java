@@ -3,6 +3,7 @@ package View;
 import Logic.GameObject.Building;
 import Logic.GameObject.GameObject;
 import Logic.GameObject.ObjectPosition;
+import Logic.GameObject.Settler;
 import Logic.GameObjectContainer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -25,6 +26,7 @@ import com.badlogic.gdx.math.Vector3;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Gustav on 12.02.2017.
@@ -32,6 +34,8 @@ import java.util.Map;
 public class GameView {
 
     private final String BUILDING_LAYER = "Buildings";
+    private final String SETTLER_LAYER = "Settlers";
+
 
     private GameObjectContainer gameObjectContainer;
     AssetManager assetManager = new AssetManager();
@@ -41,6 +45,8 @@ public class GameView {
     SpriteBatch batch;
     Sprite settlerSpriteTexture;
     private Map<Integer, Boolean> buildingBitmap;
+    private Map<Integer, ObjectPosition> settlerBitmap;
+    private TiledMapTileSet tileSet;
 
     public GameView(GameObjectContainer gameObjectContainer) {
         this.gameObjectContainer = gameObjectContainer;
@@ -68,12 +74,16 @@ public class GameView {
         camera.setToOrtho(false, map.getProperties().get("width", Integer.class), map.getProperties().get("height", Integer.class));
 
         buildingBitmap = new HashMap<>();
+        settlerBitmap = new HashMap<>();
+
+        tileSet = map.getTileSets().getTileSet("TestMapSet4");
     }
 
 
     public void update() {
 
         refreshBuildingLayer(gameObjectContainer.getBuildings());
+        refreshSettlerLayer(gameObjectContainer.getSettlers());
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -100,13 +110,21 @@ public class GameView {
         }
     }
 
+    public void refreshSettlerLayer(List<Settler> settlers) {
+        for (Settler settler : settlers) {
+            if (!settlerBitmap.containsKey(settler.hashCode()))
+                createSettler(settler);
+
+            if (settler.moved)
+                moveSettler(settler);
+        }
+    }
+
     private void createBuilding(Building building) {
         int x = building.getPosition().x;
         int y = building.getPosition().y;
 
         TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(BUILDING_LAYER);
-
-        TiledMapTileSet tileSet = map.getTileSets().getTileSet("TestMapSet4");
         TiledMapTileLayer.Cell cell[] = new TiledMapTileLayer.Cell[4];
 
         for (int i = 0; i <= 3; i++)
@@ -121,11 +139,33 @@ public class GameView {
         cell[3].setTile(tileSet.getTile(6));
         layer.setCell(x+1, y-1, cell[3]);
 
-
-
-
-
         buildingBitmap.put(building.hashCode(), true);
+    }
+
+    private void createSettler(Settler settler) {
+        int x = settler.getPosition().x;
+        int y = settler.getPosition().y;
+
+        TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(SETTLER_LAYER);
+        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+
+        cell.setTile(tileSet.getTile(7));
+        layer.setCell(x, y, cell);
+
+        settlerBitmap.put(settler.hashCode(), new ObjectPosition(settler.getPosition()));
+    }
+
+    public void moveSettler(Settler settler) {
+
+        TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(SETTLER_LAYER);
+        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+        cell.setTile(tileSet.getTile(7));
+
+        layer.setCell(settlerBitmap.get(settler.hashCode()).x, settlerBitmap.get(settler.hashCode()).y, null);
+        layer.setCell(settler.getPosition().x, settler.getPosition().y, cell);
+
+        settlerBitmap.put(settler.hashCode(), new ObjectPosition(settler.getPosition()));
+        settler.moved = false;
     }
 
 

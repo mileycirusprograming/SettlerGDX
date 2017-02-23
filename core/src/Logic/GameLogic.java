@@ -2,6 +2,8 @@ package Logic;
 
 import Logic.GameObject.*;
 
+import java.util.Random;
+
 /**
  * Created by landfried on 30.01.17.
  */
@@ -22,6 +24,8 @@ public class GameLogic implements Runnable {
         smallRes1.getPosition().y = 10;
 
         SettlerCarrier car1 = new SettlerCarrier();
+        car1.getPosition().x = 15;
+        car1.getPosition().y = 15;
         car1.setNationId(0);
         Resource res1 = new Resource(ResourceType.STONE);
         res1.setNationId(0);
@@ -33,7 +37,7 @@ public class GameLogic implements Runnable {
 
         gameObjectContainer.createNation();
         gameObjectContainer.addBuilding(smallRes1);
-        gameObjectContainer.addSettler(car1);
+        //gameObjectContainer.addSettler(car1);
         gameObjectContainer.addResource(res1);
         gameObjectContainer.addResource(res2);
         gameObjectContainer.addResource(res3);
@@ -43,6 +47,8 @@ public class GameLogic implements Runnable {
         gameObjectContainer.updateNations();
         gameObjectContainer.updateSettlers();
         gameObjectContainer.updateBuildings();
+
+        randomSettlerMoving();
 
         running = false;
     }
@@ -61,6 +67,23 @@ public class GameLogic implements Runnable {
 
         while (running) {
             update();
+        }
+    }
+
+    private void randomSettlerMoving() {
+        Random random = new Random();
+        long currentTime = System.currentTimeMillis();
+
+        for (Settler settler : gameObjectContainer.getSettlers()) {
+            if (settler.nextMoveTime > currentTime)
+                continue;
+
+            ObjectPosition delta = new ObjectPosition();
+            delta.x = (int)(random.nextFloat()*3) - 1;
+            delta.y = (int)(random.nextFloat()*3) - 1;
+
+            settler.move(delta);
+            settler.nextMoveTime = System.currentTimeMillis() + (long)(random.nextFloat()*200 + 400);
         }
     }
 }

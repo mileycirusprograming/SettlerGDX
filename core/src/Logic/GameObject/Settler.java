@@ -8,10 +8,14 @@ import Logic.Mission.Mission;
 public abstract class Settler extends GameObject {
     private boolean busy;
     private Mission mission;
+    public boolean moved;
+    public long nextMoveTime;
 
     public Settler() {
         super();
         busy = false;
+        moved = false;
+        nextMoveTime = System.currentTimeMillis();
 
     }
 
@@ -45,5 +49,11 @@ public abstract class Settler extends GameObject {
 
     public Mission getMission() {
         return mission;
+    }
+
+    public void move(ObjectPosition delta) {
+        getPosition().x += delta.x;
+        getPosition().y += delta.y;
+        moved = true;
     }
 }
