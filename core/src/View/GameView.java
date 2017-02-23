@@ -50,7 +50,7 @@ public class GameView {
 
         while (!assetManager.update()){}
 
-        map = new TmxMapLoader().load("TestMap2.tmx");
+        map = new TmxMapLoader().load("TestMap3.tmx");
         MapLayers layers = map.getLayers();
 
         settlerSpriteTexture = new Sprite(new Texture(Gdx.files.internal("SettlerSprite.png")));
@@ -98,7 +98,7 @@ public class GameView {
 
         TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(BUILDING_LAYER);
 
-        TiledMapTileSet tileSet = map.getTileSets().getTileSet("TestMapSet3");
+        TiledMapTileSet tileSet = map.getTileSets().getTileSet("TestMapSet4");
         TiledMapTileLayer.Cell cell[] = new TiledMapTileLayer.Cell[4];
 
         for (int i = 0; i <= 3; i++)

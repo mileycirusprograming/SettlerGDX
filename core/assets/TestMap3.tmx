@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="TestMapSet4" tilewidth="32" tileheight="32" tilecount="9" columns="3">
+  <image source="TestMapSet4.png" width="96" height="96"/>
+ </tileset>
+ <layer name="Terrain" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztlMENACAIAyFx/5kdQcFiCenjnuYqNLiZ+QBWAIYT7X7JM3EXHWfB9t9k+eUXQuDoeM9Z3oocWXenLMgeVf359L561uw9M/oU8aN92f4JIfBsXCwGWQ==
+  </data>
+ </layer>
+ <layer name="Settlers" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
+  </data>
+ </layer>
+ <layer name="Buildings" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
+  </data>
+ </layer>
+</map>
