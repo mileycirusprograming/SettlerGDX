@@ -1,7 +1,9 @@
 package View;
 
 import Logic.GameObject.Building;
+import Logic.GameObject.GameObject;
 import Logic.GameObject.ObjectPosition;
+import Logic.GameObjectContainer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
@@ -31,6 +33,7 @@ public class GameView {
 
     private final String BUILDING_LAYER = "Buildings";
 
+    private GameObjectContainer gameObjectContainer;
     AssetManager assetManager = new AssetManager();
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
@@ -39,6 +42,9 @@ public class GameView {
     Sprite settlerSpriteTexture;
     private Map<Integer, Boolean> buildingBitmap;
 
+    public GameView(GameObjectContainer gameObjectContainer) {
+        this.gameObjectContainer = gameObjectContainer;
+    }
 
     public void init() {
         assetManager.setLoader(Texture.class, new TextureLoader(new InternalFileHandleResolver()));
@@ -66,6 +72,8 @@ public class GameView {
 
 
     public void update() {
+
+        refreshBuildingLayer(gameObjectContainer.getBuildings());
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

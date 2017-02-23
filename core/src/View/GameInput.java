@@ -1,32 +1,26 @@
 package View;
 
 import Logic.GameLogic;
-import Logic.GameObject.Building;
 import Logic.GameObject.BuildingSmallResidence;
 import Logic.GameObject.ObjectPosition;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by Gustav on 16.02.2017.
+ * Created by Gustav on 23.02.2017.
  */
-public class GameController implements InputProcessor {
+public class GameInput implements InputProcessor {
     private GameLogic gameLogic;
     private GameView gameView;
     private boolean touchDown;
     private float lastX, lastY;
     private int button;
 
-    public GameController(GameLogic gameLogic, GameView gameView) {
+    public GameInput(GameLogic gameLogic, GameView gameView) {
         this.gameLogic = gameLogic;
         this.gameView = gameView;
         lastX = gameView.camera.position.x;
         lastY = gameView.camera.position.y;
-    }
-
-    public void update() {
-        gameView.refreshBuildingLayer(gameLogic.getGameObjectContainer().getBuildings());
     }
 
     @Override

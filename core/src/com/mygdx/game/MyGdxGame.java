@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 import Logic.GameLogic;
-import View.GameController;
+import View.GameInput;
 import View.GameView;
 import com.badlogic.gdx.ApplicationAdapter;
 import static com.badlogic.gdx.Gdx.input;
@@ -12,26 +12,22 @@ public class MyGdxGame extends ApplicationAdapter {
 	Thread logicThread;
 	GameLogic gameLogic;
 	GameView gameView;
-	GameController gameController;
+	GameInput gameInput;
 
 
-
-
-
-	
 	@Override
 	public void create () {
 
 		gameLogic = new GameLogic();
-		gameView = new GameView();
-		gameController = new GameController(gameLogic, gameView);
+		gameView = new GameView(gameLogic.getGameObjectContainer());
+		gameInput = new GameInput(gameLogic, gameView);
 
 		gameLogic.init();
 		gameView.init();
         //logicThread = new Thread(gameLogic);
         //logicThread.run();
 
-        input.setInputProcessor(gameController);
+        input.setInputProcessor(gameInput);
 
 	}
 
@@ -39,7 +35,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render () {
 
 		//gameLogic.update();
-		gameController.update();
 		gameView.update();
 
 	}
