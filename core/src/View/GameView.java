@@ -101,7 +101,7 @@ public class GameView {
         */
     }
 
-    public void refreshBuildingLayer(List<Building> buildings) {
+    private void refreshBuildingLayer(List<Building> buildings) {
         for (Building building : buildings) {
             if (buildingBitmap.containsKey(building.hashCode()))
                 if (buildingBitmap.get(building.hashCode()))
@@ -110,7 +110,7 @@ public class GameView {
         }
     }
 
-    public void refreshSettlerLayer(List<Settler> settlers) {
+    private void refreshSettlerLayer(List<Settler> settlers) {
         for (Settler settler : settlers) {
             if (!settlerBitmap.containsKey(settler.hashCode()))
                 createSettler(settler);
@@ -155,7 +155,7 @@ public class GameView {
         settlerBitmap.put(settler.hashCode(), new ObjectPosition(settler.getPosition()));
     }
 
-    public void moveSettler(Settler settler) {
+    private void moveSettler(Settler settler) {
 
         TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(SETTLER_LAYER);
         TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
@@ -169,7 +169,7 @@ public class GameView {
     }
 
 
-    public ObjectPosition getWorldCoordinates(int x, int y) {
+    ObjectPosition getWorldCoordinates(int x, int y) {
         Vector3 vector = new Vector3();
         vector.x = x;
         vector.y = y;
