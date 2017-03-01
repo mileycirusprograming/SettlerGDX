@@ -1,9 +1,6 @@
 package View;
 
-import Logic.GameObject.Building;
-import Logic.GameObject.GameObject;
-import Logic.GameObject.ObjectPosition;
-import Logic.GameObject.Settler;
+import Logic.GameObject.*;
 import Logic.GameObjectContainer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -23,10 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Gustav on 12.02.2017.
@@ -35,6 +29,7 @@ public class GameView {
 
     private final String BUILDING_LAYER = "Buildings";
     private final String SETTLER_LAYER = "Settlers";
+    private final String RESOURCE_LAYER = "Resources";
 
 
     private GameObjectContainer gameObjectContainer;
@@ -46,6 +41,7 @@ public class GameView {
     Sprite settlerSpriteTexture;
     private Map<Integer, Boolean> buildingBitmap;
     private Map<Integer, ObjectPosition> settlerBitmap;
+    private Map<Integer, Boolean> resourceBitmap;
     private TiledMapTileSet tileSet;
 
     public GameView(GameObjectContainer gameObjectContainer) {
@@ -75,6 +71,7 @@ public class GameView {
 
         buildingBitmap = new HashMap<>();
         settlerBitmap = new HashMap<>();
+        resourceBitmap = new HashMap<>();
 
         tileSet = map.getTileSets().getTileSet("TestMapSet5");
     }
@@ -117,6 +114,12 @@ public class GameView {
 
             if (settler.moved)
                 moveSettler(settler);
+        }
+    }
+
+    private void refreshResourceLayer(List<Resource> resources) {
+        for (Resource resource : resources) {
+            //TODO
         }
     }
 
@@ -166,6 +169,25 @@ public class GameView {
 
         settlerBitmap.put(settler.hashCode(), new ObjectPosition(settler.getPosition()));
         settler.moved = false;
+    }
+
+
+    private  void createResource(Resource resource) {
+        int x = resource.getPosition().x;
+        int y = resource.getPosition().y;
+
+        TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(RESOURCE_LAYER);
+        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+
+        if (resource.getType() == ResourceType.STONE)
+            cell.setTile(tileSet.getTile(8));
+        if (resource.getType() == ResourceType.WOOD)
+            cell.setTile(tileSet.getTile(9));
+
+        layer.setCell(x, y, cell);
+
+        resourceBitmap.put(resource.hashCode(), true);
+
     }
 
 

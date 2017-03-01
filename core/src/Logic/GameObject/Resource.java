@@ -7,6 +7,8 @@ public class Resource extends GameObject {
     private ResourceType type;
     private boolean used;
     private int occupants = 0;
+    public boolean picked = false;
+    public boolean moved = false;
 
     public Resource(ResourceType type) {
         this.type = type;
