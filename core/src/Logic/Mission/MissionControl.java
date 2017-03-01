@@ -1,5 +1,6 @@
 package Logic.Mission;
 
+import Logic.Break;
 import Logic.GameObject.*;
 import Logic.NationObjectAccessor;
 
@@ -21,7 +22,10 @@ public class MissionControl {
     }
 
     public void prepareMissions() {
+        for (Mission mission : missions)
+            mission.abort();
         missions.clear();
+
         for (Building building : objectAccessor.getBuildings()) {
             for (ResourceType neededRessource : building.getNeededResources().keySet()) {
                 if (getFreeResource(neededRessource) == null)
@@ -45,6 +49,7 @@ public class MissionControl {
     }
 
     private SettlerCarrier getFreeCarrier() {
+
         for (Settler settler : objectAccessor.getSettlers())
             if (settler instanceof SettlerCarrier)
                 if (!((SettlerCarrier)settler).isBusy())

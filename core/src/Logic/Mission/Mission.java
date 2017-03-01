@@ -34,4 +34,8 @@ public abstract class Mission {
         this.state = state;
         building.missionStateChanged(this);
     }
+
+    public Building getBuilding() {
+        return building;
+    }
 }

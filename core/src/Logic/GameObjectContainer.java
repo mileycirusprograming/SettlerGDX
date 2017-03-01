@@ -145,6 +145,8 @@ public class GameObjectContainer {
     }
 
     public List<Settler> getSettlers(int nationId) {
+        if (nationSettlers.get(nationId).size() > 0)
+            getSettlers();
         return nationSettlers.get(nationId);
     }
 

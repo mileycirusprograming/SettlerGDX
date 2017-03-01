@@ -23,6 +23,7 @@ public class NationObjectAccessor {
     }
 
     public List<Settler> getSettlers() {
+        Break.stop();
         return gameObjectContainer.getSettlers(nationId);
 
     }

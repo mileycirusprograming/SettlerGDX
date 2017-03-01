@@ -1,5 +1,6 @@
 package View;
 
+import Logic.Break;
 import Logic.GameLogic;
 import Logic.GameObject.BuildingSmallResidence;
 import Logic.GameObject.ObjectPosition;
@@ -26,6 +27,8 @@ public class GameInput implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.F1)
+            Break.toggle();
         return false;
     }
 
@@ -53,6 +56,7 @@ public class GameInput implements InputProcessor {
             SettlerCarrier settler = new SettlerCarrier();
             settler.getPosition().x = worldCoordinates.x;
             settler.getPosition().y = worldCoordinates.y;
+            settler.setNationId(0);
             gameLogic.getGameObjectContainer().addSettler(settler);
         }
         return false;

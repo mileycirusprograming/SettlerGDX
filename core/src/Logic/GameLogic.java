@@ -44,13 +44,16 @@ public class GameLogic implements Runnable {
     }
 
     public void update() {
+
+        //Break.stop();
+
         gameObjectContainer.updateNations();
         gameObjectContainer.updateSettlers();
         gameObjectContainer.updateBuildings();
 
-        randomSettlerMoving();
+        settlerMovement();
 
-        running = false;
+        //running = false;
     }
 
     public void createNation() {
@@ -68,6 +71,34 @@ public class GameLogic implements Runnable {
         while (running) {
             update();
         }
+    }
+
+    private void settlerMovement() {
+        long currentTime = System.currentTimeMillis();
+
+        for (Settler settler : gameObjectContainer.getSettlers()) {
+            if (settler.nextMoveTime > currentTime)
+                continue;
+
+            if (settler instanceof SettlerCarrier) {
+                SettlerCarrier carrier = (SettlerCarrier)settler;
+
+                ObjectPosition delta = new ObjectPosition(carrier.getPosition());
+                ObjectPosition dir = new ObjectPosition(carrier.getDirection());
+                delta.x = (Math.abs(dir.x) >= Math.abs(dir.y)) ? sign(dir.x) : 0;
+                delta.y = (Math.abs(dir.x) < Math.abs(dir.y)) ? sign(dir.y) : 0;
+
+                carrier.move(delta);
+
+            }
+            settler.nextMoveTime += 400;
+        }
+    }
+
+    private int sign(int var0) {
+        if (var0 > 0) return 1;
+        if (var0 < 0) return -1;
+        return 0;
     }
 
     private void randomSettlerMoving() {
