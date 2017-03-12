@@ -38,11 +38,7 @@ public class ViewComponents {
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
     public OrthographicCamera camera = new OrthographicCamera();
-    SpriteBatch batch;
-    Sprite settlerSpriteTexture;
     private Map<Integer, Boolean> buildingBitmap;
-    private Map<Integer, ObjectPosition> settlerBitmap;
-    private Map<Integer, Boolean> resourceBitmap;
     TiledMapTileSet tileSet;
 
     public ViewComponents(GameObjectContainer gameObjectContainer) {
@@ -67,8 +63,6 @@ public class ViewComponents {
         camera.setToOrtho(false, map.getProperties().get("width", Integer.class), map.getProperties().get("height", Integer.class));
 
         buildingBitmap = new HashMap<>();
-        settlerBitmap = new HashMap<>();
-        resourceBitmap = new HashMap<>();
 
         tileSet = map.getTileSets().getTileSet("TestMapSet5");
     }
@@ -95,12 +89,6 @@ public class ViewComponents {
     }
 
 
-    private void refreshResourceLayer(List<Resource> resources) {
-        for (Resource resource : resources) {
-            //TODO
-        }
-    }
-
     private void createBuilding(Building building) {
         int x = building.getPosition().x;
         int y = building.getPosition().y;
@@ -124,25 +112,6 @@ public class ViewComponents {
     }
 
 
-    private void createResource(Resource resource) {
-        int x = resource.getPosition().x;
-        int y = resource.getPosition().y;
-
-        TiledMapTileLayer layer = getLayer(RESOURCE_LAYER);
-        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-
-        if (resource.getType() == ResourceType.STONE)
-            cell.setTile(tileSet.getTile(8));
-        if (resource.getType() == ResourceType.WOOD)
-            cell.setTile(tileSet.getTile(9));
-
-        layer.setCell(x, y, cell);
-
-        resourceBitmap.put(resource.hashCode(), true);
-
-    }
-
-
     ObjectPosition getWorldCoordinates(int x, int y) {
         Vector3 vector = new Vector3();
         vector.x = x;
@@ -157,7 +126,6 @@ public class ViewComponents {
     public void refreshLayers() {
 
         refreshBuildingLayer(gameObjectContainer.getBuildings());
-        //refreshSettlerLayer(gameObjectContainer.getSettlers());
 
     }
 

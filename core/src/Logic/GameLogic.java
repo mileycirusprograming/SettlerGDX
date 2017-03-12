@@ -29,10 +29,16 @@ public class GameLogic implements Runnable {
         car1.setNationId(0);
         Resource res1 = new Resource(ResourceType.STONE);
         res1.setNationId(0);
+        res1.getPosition().x = 10;
+        res1.getPosition().y = 14;
         Resource res2 = new Resource(ResourceType.STONE);
         res2.setNationId(0);
+        res2.getPosition().x = 20;
+        res2.getPosition().y = 4;
         Resource res3 = new Resource(ResourceType.WOOD);
         res3.setNationId(0);
+        res3.getPosition().x = 24;
+        res3.getPosition().y = 21;
 
 
         gameObjectContainer.createNation();

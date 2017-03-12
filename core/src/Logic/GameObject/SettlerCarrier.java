@@ -17,7 +17,7 @@ public class SettlerCarrier extends Settler {
     private ObjectPosition getDestination() {
         ObjectPosition destination = new ObjectPosition();
         if (getMission() != null)
-            destination = getMission().getBuilding().getPosition();
+            destination = ((MissionCarrier)getMission()).getResource().getPosition();
         return destination;
     }
 
