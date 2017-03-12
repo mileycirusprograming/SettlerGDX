@@ -20,10 +20,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		gameLogic = new GameLogic();
 		gameView = new GameView(gameLogic.getGameObjectContainer());
-		gameInput = new GameInput(gameLogic, gameView);
+		gameInput = new GameInput(gameLogic, gameView.viewComponents);
 
 		gameLogic.init();
-		gameView.init();
         //logicThread = new Thread(gameLogic);
         //logicThread.run();
 

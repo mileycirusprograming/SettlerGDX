@@ -1,6 +1,7 @@
 package Logic;
 
 import Logic.GameObject.Building;
+import Logic.GameObject.GameObject;
 import Logic.GameObject.Resource;
 import Logic.GameObject.Settler;
 
@@ -19,7 +20,7 @@ public class GameObjectContainer {
     private Map<Integer, List<Building>> nationBuildings;
     private Map<Integer, List<Resource>> nationResources;
 
-
+    private Set<Class<? extends GameObject>> propertyChanged;
 
     public GameObjectContainer() {
         nations = new ArrayList<>();
@@ -29,6 +30,7 @@ public class GameObjectContainer {
         nationSettlers = new HashMap<>();
         nationBuildings = new HashMap<>();
         nationResources = new HashMap<>();
+        propertyChanged = new HashSet<>();
     }
 
 
@@ -86,6 +88,7 @@ public class GameObjectContainer {
 
     public void addSettler(Settler newSettler) {
         settlers.add(newSettler);
+        notifyChange(Settler.class);
         refreshNationObjects();
     }
 
@@ -152,6 +155,14 @@ public class GameObjectContainer {
 
     public List<Resource> getResources(int nationId) {
         return nationResources.get(nationId);
+    }
+
+    public boolean isPropertyChanged(Class<? extends GameObject> objectType) {
+        return propertyChanged.remove(objectType);
+    }
+
+    private void notifyChange(Class<? extends GameObject> objectType) {
+        propertyChanged.add(objectType);
     }
 
 }

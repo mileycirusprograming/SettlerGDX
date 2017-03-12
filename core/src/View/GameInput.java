@@ -14,15 +14,16 @@ import com.badlogic.gdx.InputProcessor;
 public class GameInput implements InputProcessor {
     private GameLogic gameLogic;
     private GameView gameView;
+    private ViewComponents viewComponents;
     private boolean touchDown;
     private float lastX, lastY;
     private int button;
 
-    public GameInput(GameLogic gameLogic, GameView gameView) {
+    public GameInput(GameLogic gameLogic, ViewComponents viewComponents) {
         this.gameLogic = gameLogic;
-        this.gameView = gameView;
-        lastX = gameView.camera.position.x;
-        lastY = gameView.camera.position.y;
+        this.viewComponents = viewComponents;
+        lastX = viewComponents.camera.position.x;
+        lastY = viewComponents.camera.position.y;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class GameInput implements InputProcessor {
         this.button = button;
         if (button == Input.Buttons.LEFT) {
             BuildingSmallResidence buildingSmallResidence = new BuildingSmallResidence();
-            ObjectPosition worldCoordinates = gameView.getWorldCoordinates(screenX, screenY);
+            ObjectPosition worldCoordinates = viewComponents.getWorldCoordinates(screenX, screenY);
             buildingSmallResidence.getPosition().x = worldCoordinates.x;
             buildingSmallResidence.getPosition().y = worldCoordinates.y;
             //gameLogic.getGameObjectContainer().addBuilding(buildingSmallResidence);
@@ -70,8 +71,8 @@ public class GameInput implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if (button == Input.Buttons.RIGHT) {
-            gameView.camera.position.x += (lastX - screenX) * 0.04;
-            gameView.camera.position.y -= (lastY - screenY) * 0.04;
+            viewComponents.camera.position.x += (lastX - screenX) * 0.04;
+            viewComponents.camera.position.y -= (lastY - screenY) * 0.04;
             lastX = screenX;
             lastY = screenY;
         }
@@ -85,7 +86,7 @@ public class GameInput implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        gameView.camera.zoom += amount * 0.02;
+        viewComponents.camera.zoom += amount * 0.02;
         return false;
     }
 }
