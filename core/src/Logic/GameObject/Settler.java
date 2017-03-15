@@ -20,8 +20,13 @@ public abstract class Settler extends GameObject {
     }
 
     public abstract void update();
-
     protected abstract boolean isCorrectMission(Mission mission);
+    protected abstract void initMission();
+
+    protected void finishMission() {
+        mission.finish();
+        mission = null;
+    }
 
     public boolean isBusy() {
         return busy;
@@ -43,6 +48,7 @@ public abstract class Settler extends GameObject {
         this.mission = mission;
         setBusy(true);
         this.mission.begin();
+        initMission();
 
         return true;
     }
@@ -56,4 +62,5 @@ public abstract class Settler extends GameObject {
         getPosition().y += delta.y;
         moved = true;
     }
+
 }

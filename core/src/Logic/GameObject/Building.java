@@ -49,6 +49,23 @@ public abstract class Building extends GameObject {
         return new HashMap<>();
     }
 
+    public void notifyShippingResource(ResourceType resourceType) {
+        shippedResources.add(resourceType);
+    }
+
+    public  void notifyStopShippingResource(ResourceType resourceType) {
+        shippedResources.remove(resourceType);
+    }
+
+    public void notifyMissionComplete(Mission mission) {
+        if (mission instanceof MissionCarrier) {
+            MissionCarrier missionCarrier = (MissionCarrier) mission;
+            shippedResources.remove(((MissionCarrier) mission).getResource().getType());
+            missionCarrier.getResource().claim();
+            storedResources.add(missionCarrier.getResource());
+        }
+    }
+
     public void missionStateChanged(Mission mission) {
         if (mission instanceof MissionCarrier) {
             MissionCarrier missionCarrier = (MissionCarrier)mission;
@@ -63,6 +80,7 @@ public abstract class Building extends GameObject {
                     break;
                 case COMPLETE:
                     shippedResources.remove(resourceType);
+                    missionCarrier.getResource().claim();
                     storedResources.add(missionCarrier.getResource());
                     break;
             }

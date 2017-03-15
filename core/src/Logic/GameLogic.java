@@ -37,8 +37,21 @@ public class GameLogic implements Runnable {
         res2.getPosition().y = 4;
         Resource res3 = new Resource(ResourceType.WOOD);
         res3.setNationId(0);
-        res3.getPosition().x = 24;
-        res3.getPosition().y = 21;
+        res3.getPosition().x = 18;
+        res3.getPosition().y = 15;
+        Resource res4 = new Resource(ResourceType.WOOD);
+        res4.setNationId(0);
+        res4.getPosition().x = 30;
+        res4.getPosition().y = 28;
+        Resource res5 = new Resource(ResourceType.WOOD);
+        res5.setNationId(0);
+        res5.getPosition().x = 5;
+        res5.getPosition().y = 31;
+        Resource res6 = new Resource(ResourceType.WOOD);
+        res6.setNationId(0);
+        res6.getPosition().x = 23;
+        res6.getPosition().y = 13;
+
 
 
         gameObjectContainer.createNation();
@@ -47,6 +60,10 @@ public class GameLogic implements Runnable {
         gameObjectContainer.addResource(res1);
         gameObjectContainer.addResource(res2);
         gameObjectContainer.addResource(res3);
+        gameObjectContainer.addResource(res4);
+        gameObjectContainer.addResource(res5);
+        gameObjectContainer.addResource(res6);
+
     }
 
     public void update() {
@@ -97,7 +114,7 @@ public class GameLogic implements Runnable {
                 carrier.move(delta);
 
             }
-            settler.nextMoveTime += 400;
+            settler.nextMoveTime += 100;
         }
     }
 

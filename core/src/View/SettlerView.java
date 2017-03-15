@@ -31,10 +31,6 @@ public class SettlerView {
 
     public void update() {
         clearCells();
-
-        //if (viewComponents.gameObjectContainer.isPropertyChanged(Settler.class))
-        //    drawAllSettlers();
-
         drawAllSettlers();
     }
 

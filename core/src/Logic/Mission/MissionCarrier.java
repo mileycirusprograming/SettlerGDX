@@ -14,6 +14,8 @@ public class MissionCarrier extends Mission {
         super(building);
         this.resource = resource;
         resource.claim();
+        getBuilding().notifyShippingResource(getResource().getType());
+
     }
 
     @Override
@@ -23,15 +25,22 @@ public class MissionCarrier extends Mission {
 
     @Override
     public void abort() {
-        resource.disclaim();
+        if (getState() == MissionState.WORK)
+            getBuilding().notifyStopShippingResource(getResource().getType());
         super.abort();
+        resource.disclaim();
+
     }
 
     @Override
     public void finish() {
-        resource.disclaim();
         super.finish();
+        getBuilding().notifyMissionComplete(this);
+        resource.disclaim();
+
     }
+
+
 
     public Resource getResource() {
         return resource;

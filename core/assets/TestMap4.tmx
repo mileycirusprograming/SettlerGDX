@@ -8,7 +8,7 @@
    eJzt0zEOgEAIRFE24f5ntrVR0eGjJlNMCW8JS0ZEOs5J1i5T9esiSg/VVvyO2Um/YlN+h0n5HfaUr/RRfXWHxL13zDB1M3f9qv3kD2ehjvbVndM+sX/7//Krb3jTJ+2v+7R95E+4jqNkAzrLDO8=
   </data>
  </layer>
- <layer name="Settlers" width="32" height="32">
+ <layer name="Resources" width="32" height="32">
   <data encoding="base64" compression="zlib">
    eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
   </data>
@@ -18,7 +18,7 @@
    eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
   </data>
  </layer>
- <layer name="Resources" width="32" height="32">
+ <layer name="Settlers" width="32" height="32">
   <data encoding="base64" compression="zlib">
    eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
   </data>

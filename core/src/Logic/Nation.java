@@ -34,12 +34,8 @@ public class Nation {
 
         missionControl.prepareMissions();
         missionControl.distributeMissions();
+        missionControl.removeTerminatedMissions();
 
     }
 
-
-
-    public List<Mission> getMissions() {
-        return missionControl.getMissions();
-    }
 }

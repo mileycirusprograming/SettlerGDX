@@ -6,9 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayers;
@@ -18,6 +17,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +44,7 @@ public class ViewComponents {
     public OrthographicCamera camera = new OrthographicCamera();
     private Map<Integer, Boolean> buildingBitmap;
     TiledMapTileSet tileSet;
+    public Stage stage;
 
     public ViewComponents(GameObjectContainer gameObjectContainer) {
         this.gameObjectContainer = gameObjectContainer;
@@ -65,6 +70,43 @@ public class ViewComponents {
         buildingBitmap = new HashMap<>();
 
         tileSet = map.getTileSets().getTileSet("TestMapSet5");
+
+        stage = new Stage();
+
+        // A skin can be loaded via JSON or defined programmatically, either is fine. Using a skin is optional but strongly
+        // recommended solely for the convenience of getting a texture, region, etc as a drawable, tinted drawable, etc.
+        Skin skin = new Skin();
+
+        // Generate a 1x1 white texture and store it in the skin named "white".
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        skin.add("white", new Texture(pixmap));
+
+        // Store the default libgdx font under the name "default".
+        skin.add("default", new BitmapFont());
+
+        // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
+        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
+        textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
+        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
+        textButtonStyle.font = skin.getFont("default");
+        skin.add("default", textButtonStyle);
+
+        // Create a table that fills the screen. Everything else will go inside this table.
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
+        final TextButton button = new TextButton("Nicht druecken!", skin);
+        table.add(button);
+
+        stage.addActor(table);
+        //renderer.setView((OrthographicCamera)stage.getCamera());
+
     }
 
     public void render() {
@@ -73,8 +115,10 @@ public class ViewComponents {
 
         camera.update();
         renderer.setView(camera);
-
         renderer.render();
+
+        stage.act();
+        stage.draw();
 
     }
 

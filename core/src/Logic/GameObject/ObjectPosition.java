@@ -11,6 +11,12 @@ public class ObjectPosition {
 
     }
 
+    public boolean equals(ObjectPosition objectPosition) {
+        if (x == objectPosition.x && y == objectPosition.y)
+            return true;
+        return false;
+    }
+
     public ObjectPosition(ObjectPosition objectPosition) {
         this.x = objectPosition.x;
         this.y = objectPosition.y;

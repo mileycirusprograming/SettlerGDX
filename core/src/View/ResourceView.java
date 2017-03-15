@@ -45,10 +45,6 @@ public class ResourceView {
 
     public void update() {
         clearCells();
-
-        //if (viewComponents.gameObjectContainer.isPropertyChanged(Settler.class))
-        //    drawAllResources();
-
         drawAllResources();
     }
 
@@ -68,7 +64,8 @@ public class ResourceView {
 
     private void drawAllResources() {
         for (Resource resource : resources)
-            putCell(resource);
+            if (!resource.picked)
+                putCell(resource);
     }
 
 

@@ -9,16 +9,66 @@ import Logic.Mission.MissionCarrier;
 public class SettlerCarrier extends Settler {
     private ObjectPosition destination;
     private final ObjectPosition direction = new ObjectPosition();
-
+    private boolean resourceReached;
+    private  boolean buildingReached;
+    private enum State {WAITING, DEST_RESOURCE, REACHED_RESOURCE, DEST_BUILDING, REACHED_BUILDING, DONE}
+    private State state;
     public SettlerCarrier() {
         super();
     }
 
-    private ObjectPosition getDestination() {
-        ObjectPosition destination = new ObjectPosition();
-        if (getMission() != null)
-            destination = ((MissionCarrier)getMission()).getResource().getPosition();
-        return destination;
+    private void updateDestination() {
+        destination = new ObjectPosition(getPosition());
+        if (getMission() == null)
+            return;
+
+        switch (state) {
+            case WAITING:
+                break;
+            case DEST_RESOURCE:
+                destination = getMissionCarrier().getResource().getPosition();
+                break;
+            case REACHED_RESOURCE:
+                break;
+            case DEST_BUILDING:
+                destination = getMissionCarrier().getBuilding().getPosition();
+                break;
+            case REACHED_BUILDING:
+                break;
+        }
+    }
+
+    private void updateState() {
+        if (getMission() == null)
+            return;
+
+        switch (state) {
+            case WAITING:
+                if (getMission() != null)
+                    state = State.DEST_RESOURCE;
+                break;
+            case DEST_RESOURCE:
+                if (destination.equals(getPosition()))
+                    state = State.REACHED_RESOURCE;
+                break;
+            case REACHED_RESOURCE:
+                if (getMissionCarrier().getResource().picked)
+                    state = State.DEST_BUILDING;
+                break;
+            case DEST_BUILDING:
+                if (destination.equals(getPosition()))
+                    state = State.REACHED_BUILDING;
+                break;
+            case REACHED_BUILDING:
+                if (!getMissionCarrier().getResource().picked)
+                    state = State.DONE;
+                break;
+            case DONE:
+                finishMission();
+                setBusy(false);
+                state = State.WAITING;
+        }
+
     }
 
     private MissionCarrier getMissionCarrier() {
@@ -27,7 +77,14 @@ public class SettlerCarrier extends Settler {
 
     @Override
     public void update() {
-        destination = getDestination();
+        updateState();
+        updateDestination();
+        if (state == State.REACHED_RESOURCE)
+            getMissionCarrier().getResource().picked = true;
+        if (state == State.REACHED_BUILDING) {
+            getMissionCarrier().getResource().setPosition(new ObjectPosition(getPosition()));
+            getMissionCarrier().getResource().picked = false;
+        }
         int deltaX = destination.x - getPosition().x;
         int deltaY = destination.y - getPosition().y;
         direction.x = deltaX;
@@ -42,5 +99,11 @@ public class SettlerCarrier extends Settler {
 
     public ObjectPosition getDirection() {
         return direction;
+    }
+
+    @Override
+    protected void initMission() {
+        state = State.DEST_RESOURCE;
+        updateDestination();
     }
 }
