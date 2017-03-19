@@ -54,12 +54,12 @@ public class ViewComponents {
     public void init() {
 
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load("TestMap4.tmx", TiledMap.class);
+        assetManager.load("TestMap5.tmx", TiledMap.class);
 
         while (!assetManager.update()) {
         }
 
-        map = new TmxMapLoader().load("TestMap4.tmx");
+        map = new TmxMapLoader().load("TestMap5.tmx");
         MapLayers layers = map.getLayers();
 
 
