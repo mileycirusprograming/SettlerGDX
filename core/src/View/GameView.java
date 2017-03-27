@@ -1,5 +1,6 @@
 package View;
 
+import Logic.GameObject.Building;
 import Logic.GameObjectContainer;
 
 
@@ -11,19 +12,22 @@ public class GameView {
     public ViewComponents viewComponents;
     private SettlerView settlerView;
     private ResourceView resourceView;
+    private BuildingView buildingView;
 
     public GameView(GameObjectContainer gameObjectContainer) {
         viewComponents = new ViewComponents(gameObjectContainer);
         settlerView = new SettlerView(viewComponents);
         resourceView = new ResourceView(viewComponents);
+        buildingView = new BuildingView(viewComponents);
     }
 
     public void update() {
 
         settlerView.update();
         resourceView.update();
+        buildingView.update();
 
-        viewComponents.refreshLayers();
+        //viewComponents.refreshLayers();
         viewComponents.render();
 
 
