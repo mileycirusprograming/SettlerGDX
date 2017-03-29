@@ -10,18 +10,29 @@ public abstract class Settler extends GameObject {
     private Mission mission;
     public boolean moved;
     public long nextMoveTime;
+    protected ObjectPosition direction;
+    protected ObjectPosition destination;
 
     public Settler() {
         super();
         busy = false;
         moved = false;
         nextMoveTime = System.currentTimeMillis();
+        direction = new ObjectPosition();
+        destination = new ObjectPosition();
 
     }
 
     public abstract void update();
     protected abstract boolean isCorrectMission(Mission mission);
     protected abstract void initMission();
+
+    protected void updateDirection() {
+        int deltaX = destination.x - getPosition().x;
+        int deltaY = destination.y - getPosition().y;
+        direction.x = deltaX;
+        direction.y = deltaY;
+    }
 
     protected void finishMission() {
         mission.finish();

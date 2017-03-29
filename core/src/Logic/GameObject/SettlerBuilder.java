@@ -1,17 +1,19 @@
 package Logic.GameObject;
 
 import Logic.Mission.Mission;
-import Logic.Mission.MissionCarrier;
+import Logic.Mission.MissionBuilder;
 
 /**
  * Created by landfried on 30.01.17.
  */
-public class SettlerCarrier extends Settler {
+public class SettlerBuilder extends Settler {
+    private ObjectPosition destination;
+    private final ObjectPosition direction = new ObjectPosition();
     private boolean resourceReached;
     private  boolean buildingReached;
-    private enum State {WAITING, DEST_RESOURCE, REACHED_RESOURCE, DEST_BUILDING, REACHED_BUILDING, DONE}
+    private enum State {WAITING, DEST_BUILDING, REACHED_BUILDING, BUILD, DONE}
     private State state;
-    public SettlerCarrier() {
+    public SettlerBuilder() {
         super();
     }
 
@@ -23,13 +25,8 @@ public class SettlerCarrier extends Settler {
         switch (state) {
             case WAITING:
                 break;
-            case DEST_RESOURCE:
-                destination = getMissionCarrier().getResource().getPosition();
-                break;
-            case REACHED_RESOURCE:
-                break;
             case DEST_BUILDING:
-                destination = getMissionCarrier().getBuilding().getPosition();
+                destination = getMissionBuilder().getBuilding().getPosition();
                 break;
             case REACHED_BUILDING:
                 break;
@@ -43,14 +40,6 @@ public class SettlerCarrier extends Settler {
         switch (state) {
             case WAITING:
                 if (getMission() != null)
-                    state = State.DEST_RESOURCE;
-                break;
-            case DEST_RESOURCE:
-                if (destination.equals(getPosition()))
-                    state = State.REACHED_RESOURCE;
-                break;
-            case REACHED_RESOURCE:
-                if (getMissionCarrier().getResource().picked)
                     state = State.DEST_BUILDING;
                 break;
             case DEST_BUILDING:
@@ -58,8 +47,9 @@ public class SettlerCarrier extends Settler {
                     state = State.REACHED_BUILDING;
                 break;
             case REACHED_BUILDING:
-                if (!getMissionCarrier().getResource().picked)
-                    state = State.DONE;
+                state = State.BUILD;
+                break;
+            case BUILD:
                 break;
             case DONE:
                 finishMission();
@@ -69,27 +59,21 @@ public class SettlerCarrier extends Settler {
 
     }
 
-    private MissionCarrier getMissionCarrier() {
-        return (MissionCarrier) getMission();
+    private MissionBuilder getMissionBuilder() {
+        return (MissionBuilder) getMission();
     }
 
     @Override
     public void update() {
         updateState();
         updateDestination();
-        if (state == State.REACHED_RESOURCE)
-            getMissionCarrier().getResource().picked = true;
-        if (state == State.REACHED_BUILDING) {
-            getMissionCarrier().getResource().setPosition(new ObjectPosition(getPosition()));
-            getMissionCarrier().getResource().picked = false;
-        }
         updateDirection();
     }
 
     // sollten nciht sowieso nur SettlerCarrier MissionCarriers bekommen und für alles andere genau so?
     @Override
     public boolean isCorrectMission(Mission mission) {
-        return (mission instanceof MissionCarrier);
+        return (mission instanceof MissionBuilder);
     }
 
     public ObjectPosition getDirection() {
@@ -98,7 +82,7 @@ public class SettlerCarrier extends Settler {
 
     @Override
     protected void initMission() {
-        state = State.DEST_RESOURCE;
+        state = State.DEST_BUILDING;
         updateDestination();
     }
 }

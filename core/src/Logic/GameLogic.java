@@ -114,7 +114,7 @@ public class GameLogic implements Runnable {
                 carrier.move(delta);
 
             }
-            settler.nextMoveTime += 100;
+            settler.nextMoveTime += 400;
         }
     }
 

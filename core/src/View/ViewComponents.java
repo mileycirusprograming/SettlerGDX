@@ -59,7 +59,7 @@ public class ViewComponents {
         while (!assetManager.update()) {
         }
 
-        map = new TmxMapLoader().load("TestMap5.tmx");
+        map = new TmxMapLoader().load("TestMap6.tmx");
         MapLayers layers = map.getLayers();
 
 
@@ -69,7 +69,7 @@ public class ViewComponents {
 
         buildingBitmap = new HashMap<>();
 
-        tileSet = map.getTileSets().getTileSet("TestMapSet5");
+        tileSet = map.getTileSets().getTileSet("TestMapSet6");
 
         stage = new Stage();
 
