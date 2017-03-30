@@ -77,11 +77,14 @@ public class SettlerCarrier extends Settler {
     public void update() {
         updateState();
         updateDestination();
+        if (state == State.DEST_BUILDING)
+            getMissionCarrier().getResource().setPosition(new ObjectPosition(getPosition()));
         if (state == State.REACHED_RESOURCE)
             getMissionCarrier().getResource().picked = true;
         if (state == State.REACHED_BUILDING) {
-            getMissionCarrier().getResource().setPosition(new ObjectPosition(getPosition()));
             getMissionCarrier().getResource().picked = false;
+            getMissionCarrier().getResource().setPosition(new ObjectPosition(getPosition()));
+
         }
         updateDirection();
     }

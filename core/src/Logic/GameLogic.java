@@ -20,8 +20,8 @@ public class GameLogic implements Runnable {
     public void init() {
         BuildingSmallResidence smallRes1 = new BuildingSmallResidence();
         smallRes1.setNationId(0);
-        smallRes1.getPosition().x = 20;
-        smallRes1.getPosition().y = 10;
+        smallRes1.getPosition().x = 40;
+        smallRes1.getPosition().y = 40;
 
         SettlerCarrier car1 = new SettlerCarrier();
         car1.getPosition().x = 15;
@@ -43,7 +43,7 @@ public class GameLogic implements Runnable {
         res4.setNationId(0);
         res4.getPosition().x = 30;
         res4.getPosition().y = 28;
-        Resource res5 = new Resource(ResourceType.WOOD);
+        Resource res5 = new Resource(ResourceType.STONE);
         res5.setNationId(0);
         res5.getPosition().x = 5;
         res5.getPosition().y = 31;
@@ -51,6 +51,18 @@ public class GameLogic implements Runnable {
         res6.setNationId(0);
         res6.getPosition().x = 23;
         res6.getPosition().y = 13;
+        Resource res7 = new Resource(ResourceType.WOOD);
+        res7.setNationId(0);
+        res7.getPosition().x = 50;
+        res7.getPosition().y = 30;
+        Resource res8 = new Resource(ResourceType.STONE);
+        res8.setNationId(0);
+        res8.getPosition().x = 22;
+        res8.getPosition().y = 51;
+        Resource res9 = new Resource(ResourceType.STONE);
+        res9.setNationId(0);
+        res9.getPosition().x = 52;
+        res9.getPosition().y = 53;
 
 
 
@@ -63,6 +75,10 @@ public class GameLogic implements Runnable {
         gameObjectContainer.addResource(res4);
         gameObjectContainer.addResource(res5);
         gameObjectContainer.addResource(res6);
+        gameObjectContainer.addResource(res7);
+        gameObjectContainer.addResource(res8);
+        gameObjectContainer.addResource(res9);
+
 
     }
 
@@ -114,7 +130,7 @@ public class GameLogic implements Runnable {
                 carrier.move(delta);
 
             }
-            settler.nextMoveTime += 400;
+            settler.nextMoveTime += 200;
         }
     }
 

@@ -3,6 +3,7 @@ package com.mygdx.game;
 import Logic.GameLogic;
 import View.GameInput;
 import View.GameView;
+import View.InterfaceView;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 
@@ -15,6 +16,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	GameLogic gameLogic;
 	GameView gameView;
 	GameInput gameInput;
+	InterfaceView interfaceView;
+
 
 
 	@Override
@@ -23,9 +26,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		gameLogic = new GameLogic();
 		gameView = new GameView(gameLogic.getGameObjectContainer());
 		gameInput = new GameInput(gameLogic, gameView.viewComponents);
+		interfaceView = new InterfaceView(gameLogic.getGameObjectContainer());
+
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
-		inputMultiplexer.addProcessor(gameView.viewComponents.stage);
+		inputMultiplexer.addProcessor(interfaceView.getStage());
 		inputMultiplexer.addProcessor(gameInput);
 		input.setInputProcessor(inputMultiplexer);
 
@@ -42,6 +47,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		gameLogic.update();
 		gameView.update();
+		interfaceView.update();
 
 	}
 	

@@ -64,7 +64,7 @@ public class ResourceView {
 
     private void drawAllResources() {
         for (Resource resource : resources)
-            if (!resource.picked)
+            //if (!resource.picked)
                 putCell(resource);
     }
 
