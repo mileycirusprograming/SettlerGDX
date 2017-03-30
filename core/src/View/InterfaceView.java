@@ -72,9 +72,9 @@ public class InterfaceView {
         final TextButton button3 = new TextButton("Right Nicht druecken!", skin);
 
 
-        verticalGroupLeft.addActor(button1);
-        verticalGroupCenter.addActor(button2);
-        verticalGroupRight.addActor(button3);
+        //verticalGroupLeft.addActor(button1);
+        //verticalGroupCenter.addActor(button2);
+        //verticalGroupRight.addActor(button3);
 
 
         stage.addActor(horizontalGroup);

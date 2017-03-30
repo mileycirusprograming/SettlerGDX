@@ -7,6 +7,7 @@ import View.InterfaceView;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 
 import static com.badlogic.gdx.Gdx.input;
 
@@ -59,11 +60,10 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void resize( int width, int height) {
-		float cameraAspectRatio = (float) width / (float) height;
 		gameView.viewComponents.camera.viewportHeight = height;
 		gameView.viewComponents.camera.viewportWidth = width;
-		//= new OrthographicCamera(2f * cameraAspectRatio, 2f);
+        //gameView.viewComponents.camera.position.x = width * 0.1f;
 
-		interfaceView.getStage().getViewport().update(width, height, true);
+		interfaceView.getStage().getViewport().update((int)(width), height, true);
 	}
 }

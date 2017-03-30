@@ -71,8 +71,8 @@ public class GameInput implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if (button == Input.Buttons.RIGHT) {
-            viewComponents.camera.position.x += (lastX - screenX) * 0.04;
-            viewComponents.camera.position.y -= (lastY - screenY) * 0.04;
+            viewComponents.camera.position.x += (lastX - screenX) * viewComponents.camera.zoom;
+            viewComponents.camera.position.y -= (lastY - screenY) * viewComponents.camera.zoom;
             lastX = screenX;
             lastY = screenY;
         }
