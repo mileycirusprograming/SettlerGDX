@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 /**
  * Created by landfried on 31.03.17.
@@ -46,16 +44,40 @@ public class InterfaceView {
         textButtonStyle.font = skin.getFont("default");
         skin.add("default", textButtonStyle);
 
+        /*
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
+        */
+
+
+        HorizontalGroup horizontalGroup = new HorizontalGroup();
+        horizontalGroup.setFillParent(true);
+        horizontalGroup.center();
+        stage.addActor(horizontalGroup);
+
+        VerticalGroup verticalGroupLeft = new VerticalGroup();
+        VerticalGroup verticalGroupCenter = new VerticalGroup();
+        VerticalGroup verticalGroupRight = new VerticalGroup();
+
+        horizontalGroup.addActor(verticalGroupLeft);
+        horizontalGroup.addActor(verticalGroupCenter);
+        horizontalGroup.addActor(verticalGroupRight);
+
 
         // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
-        final TextButton button = new TextButton("Nicht druecken!", skin);
-        table.add(button);
+        final TextButton button1 = new TextButton("Left Nicht druecken!", skin);
+        final TextButton button2 = new TextButton("Center Nicht druecken!", skin);
+        final TextButton button3 = new TextButton("Right Nicht druecken!", skin);
 
-        stage.addActor(table);
+
+        verticalGroupLeft.addActor(button1);
+        verticalGroupCenter.addActor(button2);
+        verticalGroupRight.addActor(button3);
+
+
+        stage.addActor(horizontalGroup);
         //renderer.setView((OrthographicCamera)stage.getCamera());
 
     }

@@ -86,7 +86,7 @@ public class GameInput implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        viewComponents.camera.zoom += amount * 0.02;
+        viewComponents.camera.zoom += amount * 0.1 * viewComponents.camera.zoom;
         return false;
     }
 }

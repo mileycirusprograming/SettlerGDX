@@ -44,7 +44,6 @@ public class ViewComponents {
     public OrthographicCamera camera = new OrthographicCamera();
     private Map<Integer, Boolean> buildingBitmap;
     TiledMapTileSet tileSet;
-    public Stage stage;
 
     public ViewComponents(GameObjectContainer gameObjectContainer) {
         this.gameObjectContainer = gameObjectContainer;
@@ -66,12 +65,12 @@ public class ViewComponents {
         float unitScale = 1 / 32f;
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         camera.setToOrtho(false, map.getProperties().get("width", Integer.class), map.getProperties().get("height", Integer.class));
+        camera.zoom = .1f;
 
         buildingBitmap = new HashMap<>();
 
         tileSet = map.getTileSets().getTileSet("TestMapSet6");
 
-        stage = new Stage();
 
     }
 
