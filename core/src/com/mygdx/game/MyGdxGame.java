@@ -1,13 +1,12 @@
 package com.mygdx.game;
 
+import Controller.MainController;
 import Logic.GameLogic;
 import View.GameInput;
 import View.GameView;
 import View.InterfaceView;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector3;
 
 import static com.badlogic.gdx.Gdx.input;
 
@@ -19,6 +18,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	GameView gameView;
 	GameInput gameInput;
 	InterfaceView interfaceView;
+	MainController mainController;
+
 
 
 
@@ -27,9 +28,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		gameLogic = new GameLogic();
 		gameView = new GameView(gameLogic.getGameObjectContainer());
-		gameInput = new GameInput(gameLogic, gameView.viewComponents);
 		interfaceView = new InterfaceView(gameLogic.getGameObjectContainer());
-
+		mainController = new MainController(gameView.viewComponents, gameLogic.getGameObjectContainer(), interfaceView);
+		gameInput = new GameInput(gameLogic, gameView.viewComponents, mainController);
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(interfaceView.getStage());

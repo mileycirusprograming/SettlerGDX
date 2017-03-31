@@ -67,6 +67,8 @@ public class GameLogic implements Runnable {
 
 
         gameObjectContainer.createNation();
+
+/*
         gameObjectContainer.addBuilding(smallRes1);
         //gameObjectContainer.addSettler(car1);
         gameObjectContainer.addResource(res1);
@@ -78,7 +80,7 @@ public class GameLogic implements Runnable {
         gameObjectContainer.addResource(res7);
         gameObjectContainer.addResource(res8);
         gameObjectContainer.addResource(res9);
-
+*/
 
     }
 

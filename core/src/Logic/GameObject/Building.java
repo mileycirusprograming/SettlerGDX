@@ -30,8 +30,25 @@ public abstract class Building extends GameObject {
 
     public abstract void update();
 
-    public Map<ResourceType, Integer> getConstructionResources(){
-        return constructionResources;
+    public Map<ResourceType, Integer> getConstructionResources() {
+        HashMap<ResourceType, Integer> missingResources = new HashMap<>();
+        for (ResourceType type : constructionResources.keySet()) {
+            missingResources.put(type, constructionResources.get(type) - countAllResources(type));
+        }
+        return missingResources;
+    }
+
+    private int countAllResources(ResourceType countedType) {
+        int result = 0;
+        for (ResourceType type : shippedResources)
+            if (type == countedType)
+                result++;
+
+        for (Resource resource : storedResources)
+            if (resource.getType() == countedType)
+                result++;
+
+        return result;
     }
 
     public Map<ResourceType, Integer> getNeededResources() {
@@ -47,23 +64,6 @@ public abstract class Building extends GameObject {
         }
 
         return new HashMap<>();
-    }
-
-    public void notifyShippingResource(ResourceType resourceType) {
-        shippedResources.add(resourceType);
-    }
-
-    public  void notifyStopShippingResource(ResourceType resourceType) {
-        shippedResources.remove(resourceType);
-    }
-
-    public void notifyMissionComplete(Mission mission) {
-        if (mission instanceof MissionCarrier) {
-            MissionCarrier missionCarrier = (MissionCarrier) mission;
-            shippedResources.remove(((MissionCarrier) mission).getResource().getType());
-            missionCarrier.getResource().claim();
-            storedResources.add(missionCarrier.getResource());
-        }
     }
 
     public void missionStateChanged(Mission mission) {

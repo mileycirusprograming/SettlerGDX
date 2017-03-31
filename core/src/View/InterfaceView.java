@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 /**
  * Created by landfried on 31.03.17.
@@ -15,10 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 public class InterfaceView {
     private GameObjectContainer gameObjectContainer;
     private Stage stage;
+    VerticalGroup rootGroup;
+    ButtonGroup<TextButton> objectChooserGroup;
 
     public InterfaceView(GameObjectContainer gameObjectContainer) {
         this.gameObjectContainer = gameObjectContainer;
         stage = new Stage();
+
 
 
 
@@ -52,7 +57,7 @@ public class InterfaceView {
         */
 
 
-        VerticalGroup rootGroup = new VerticalGroup();
+        rootGroup = new VerticalGroup();
         rootGroup.setFillParent(true);
         rootGroup.left();
         stage.addActor(rootGroup);
@@ -64,7 +69,7 @@ public class InterfaceView {
         final TextButton button3 = new TextButton("Wood", skin);
         final TextButton button4 = new TextButton("Stone", skin);
 
-        ButtonGroup<TextButton> objectChooserGroup = new ButtonGroup<>();
+        objectChooserGroup = new ButtonGroup<>();
         objectChooserGroup.add(button1);
         objectChooserGroup.add(button2);
         objectChooserGroup.add(button3);
@@ -78,13 +83,18 @@ public class InterfaceView {
         rootGroup.addActor(button4);
 
 
-
          //renderer.setView((OrthographicCamera)stage.getCamera());
 
     }
 
     public Stage getStage() {
         return stage;
+    }
+
+    public void subscribeButtons(EventListener eventListener) {
+        for (TextButton button : objectChooserGroup.getButtons()) {
+            button.addListener(eventListener);
+        }
     }
 
     public void update() {

@@ -19,6 +19,8 @@ public class GameView {
         settlerView = new SettlerView(viewComponents);
         resourceView = new ResourceView(viewComponents);
         buildingView = new BuildingView(viewComponents);
+
+
     }
 
     public void update() {

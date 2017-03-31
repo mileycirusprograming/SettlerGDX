@@ -119,7 +119,7 @@ public class ViewComponents {
     }
 
 
-    ObjectPosition getWorldCoordinates(int x, int y) {
+    public ObjectPosition getWorldCoordinates(int x, int y) {
         Vector3 vector = new Vector3();
         vector.x = x;
         vector.y = y;
