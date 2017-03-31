@@ -52,33 +52,34 @@ public class InterfaceView {
         */
 
 
-        HorizontalGroup horizontalGroup = new HorizontalGroup();
-        horizontalGroup.setFillParent(true);
-        horizontalGroup.center();
-        stage.addActor(horizontalGroup);
-
-        VerticalGroup verticalGroupLeft = new VerticalGroup();
-        VerticalGroup verticalGroupCenter = new VerticalGroup();
-        VerticalGroup verticalGroupRight = new VerticalGroup();
-
-        horizontalGroup.addActor(verticalGroupLeft);
-        horizontalGroup.addActor(verticalGroupCenter);
-        horizontalGroup.addActor(verticalGroupRight);
+        VerticalGroup rootGroup = new VerticalGroup();
+        rootGroup.setFillParent(true);
+        rootGroup.left();
+        stage.addActor(rootGroup);
 
 
         // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
-        final TextButton button1 = new TextButton("Left Nicht druecken!", skin);
-        final TextButton button2 = new TextButton("Center Nicht druecken!", skin);
-        final TextButton button3 = new TextButton("Right Nicht druecken!", skin);
+        final TextButton button1 = new TextButton("Carrier", skin);
+        final TextButton button2 = new TextButton("SmallResidence", skin);
+        final TextButton button3 = new TextButton("Wood", skin);
+        final TextButton button4 = new TextButton("Stone", skin);
+
+        ButtonGroup<TextButton> objectChooserGroup = new ButtonGroup<>();
+        objectChooserGroup.add(button1);
+        objectChooserGroup.add(button2);
+        objectChooserGroup.add(button3);
+        objectChooserGroup.add(button4);
+        objectChooserGroup.setMaxCheckCount(1);
+        objectChooserGroup.setMinCheckCount(1);
+
+        rootGroup.addActor(button1);
+        rootGroup.addActor(button2);
+        rootGroup.addActor(button3);
+        rootGroup.addActor(button4);
 
 
-        //verticalGroupLeft.addActor(button1);
-        //verticalGroupCenter.addActor(button2);
-        //verticalGroupRight.addActor(button3);
 
-
-        stage.addActor(horizontalGroup);
-        //renderer.setView((OrthographicCamera)stage.getCamera());
+         //renderer.setView((OrthographicCamera)stage.getCamera());
 
     }
 
