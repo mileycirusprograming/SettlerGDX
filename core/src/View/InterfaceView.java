@@ -15,13 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
  * Created by landfried on 31.03.17.
  */
 public class InterfaceView {
-    private GameObjectContainer gameObjectContainer;
     private Stage stage;
-    VerticalGroup rootGroup;
-    ButtonGroup<TextButton> objectChooserGroup;
+    private ButtonGroup<TextButton> objectChooserGroup;
 
-    public InterfaceView(GameObjectContainer gameObjectContainer) {
-        this.gameObjectContainer = gameObjectContainer;
+    public InterfaceView() {
         stage = new Stage();
 
 
@@ -57,7 +54,7 @@ public class InterfaceView {
         */
 
 
-        rootGroup = new VerticalGroup();
+        VerticalGroup rootGroup = new VerticalGroup();
         rootGroup.setFillParent(true);
         rootGroup.left();
         stage.addActor(rootGroup);
@@ -81,6 +78,7 @@ public class InterfaceView {
         rootGroup.addActor(button2);
         rootGroup.addActor(button3);
         rootGroup.addActor(button4);
+
 
 
          //renderer.setView((OrthographicCamera)stage.getCamera());

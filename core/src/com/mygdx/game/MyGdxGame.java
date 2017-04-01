@@ -14,11 +14,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 	Thread logicThread;
-	GameLogic gameLogic;
-	GameView gameView;
-	GameInput gameInput;
-	InterfaceView interfaceView;
-	MainController mainController;
+	private GameLogic gameLogic;
+	private GameView gameView;
+	private GameInput gameInput;
+	private InterfaceView interfaceView;
+	private MainController mainController;
 
 
 
@@ -28,7 +28,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		gameLogic = new GameLogic();
 		gameView = new GameView(gameLogic.getGameObjectContainer());
-		interfaceView = new InterfaceView(gameLogic.getGameObjectContainer());
+		interfaceView = new InterfaceView();
 		mainController = new MainController(gameView.viewComponents, gameLogic.getGameObjectContainer(), interfaceView);
 		gameInput = new GameInput(gameLogic, gameView.viewComponents, mainController);
 
@@ -65,6 +65,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		gameView.viewComponents.camera.viewportWidth = width;
         //gameView.viewComponents.camera.position.x = width * 0.1f;
 
-		interfaceView.getStage().getViewport().update((int)(width), height, true);
+		interfaceView.getStage().getViewport().update(width, height, true);
 	}
 }
