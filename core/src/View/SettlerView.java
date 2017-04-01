@@ -16,7 +16,7 @@ public class SettlerView {
     private TiledMapTile tile;
     private ArrayList<TiledMapTileLayer.Cell> cells;
     private TiledMapTileLayer layer;
-    private final int tileIndex = 7;
+    private final int tileIndex = 11;
 
     private List<Settler> settlers;
 

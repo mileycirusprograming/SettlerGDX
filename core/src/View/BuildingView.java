@@ -28,7 +28,7 @@ public class BuildingView {
         tile = viewComponents.tileSet.getTile(tileIndex);
         tiles = new TiledMapTile[xWidth][yWidth];
         cells = new ArrayList<>();
-        layer = viewComponents.getLayer(viewComponents.SETTLER_LAYER);
+        layer = viewComponents.getLayer(viewComponents.BUILDING_LAYER);
         buildings = viewComponents.gameObjectContainer.getBuildings();
 
         setTiles();
@@ -40,10 +40,10 @@ public class BuildingView {
     }
 
  private void setTiles() {
-     tiles[0][1] = viewComponents.tileSet.getTile(2);
-     tiles[1][1] = viewComponents.tileSet.getTile(3);
-     tiles[0][0] = viewComponents.tileSet.getTile(5);
-     tiles[1][0] = viewComponents.tileSet.getTile(6);
+     tiles[0][1] = viewComponents.tileSet.getTile(4);
+     tiles[1][1] = viewComponents.tileSet.getTile(5);
+     tiles[0][0] = viewComponents.tileSet.getTile(9);
+     tiles[1][0] = viewComponents.tileSet.getTile(10);
  }
 
 

@@ -80,7 +80,9 @@ public class ViewComponents {
 
         camera.update();
         renderer.setView(camera);
+
         renderer.render();
+
 
 
     }

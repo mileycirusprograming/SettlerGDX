@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="TestMapSet6" tilewidth="32" tileheight="32" tilecount="12">
-  <image source="TestMapSet6.png" width="96" height="128"/>
+ <properties>
+  <property name="blended tiles" value="3, 4, 8, 9"/>
+ </properties>
+ <tileset firstgid="1" name="TestMapSet6" tilewidth="32" tileheight="32" tilecount="20">
+  <image source="TestMapSet6.png" width="160" height="128"/>
+  <tile id="3">
+   <properties>
+    <property name="blended" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blended" value="true"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="blended" value="true"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="blended" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Terrain" width="64" height="64">
   <data encoding="base64" compression="zlib">
-   eJzt2DEKgDAURMEI3v/M9haKGFniTjH9f1tFtzHGBgAAAEyxn6TvSXU37XDX/vdd3vSvvsOM9pU30N/bP7Nd/3obfNG/0hbt/V9vkG5L7pDuSe6Rvj2xSfo2AACea37HNb1jW9/xvt06+5u/3dv/Xejvbdevv73/yQbpO5P96RvTG6TvS/anb0ttkL4HAODKAcFKFLQ=
+   eJzt2CEOgDAURMFiuP+R8QgIoWRTdsT4/1YVtjHGBgAAAEyxn6TvSXU37XDX/vdd3vSvvsOM9pU30N/bP7Nd/3obfNG/0hbt/V9vkG5L7pDuSe6Rvj2xSfo2AACea37HNb1jW9/xvt06+5u/3dv/Xejvbdevv73/yQbpO5P96RvTG6TvS/anb0ttkL4HAODKAe4mF9Y=
   </data>
  </layer>
- <layer name="Buildings" width="64" height="64">
+ <layer name="Resources" width="64" height="64">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAAAAAACAtwFAAAAB
   </data>
  </layer>
- <layer name="Resources" width="64" height="64">
+ <layer name="Buildings" width="64" height="64">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAAAAAACAtwFAAAAB
   </data>
