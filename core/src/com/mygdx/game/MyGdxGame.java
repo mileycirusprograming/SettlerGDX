@@ -6,6 +6,7 @@ import View.GameInput;
 import View.GameView;
 import View.InterfaceView;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 
 import static com.badlogic.gdx.Gdx.input;
@@ -25,6 +26,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+
+		//Gdx.graphics.setWindowedMode(1000, 500);
+
 
 		gameLogic = new GameLogic();
 		gameView = new GameView(gameLogic.getGameObjectContainer());
@@ -65,6 +69,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		gameView.viewComponents.camera.viewportWidth = width;
         //gameView.viewComponents.camera.position.x = width * 0.1f;
 
-		interfaceView.getStage().getViewport().update(width, height, true);
+//		interfaceView.getStage().getViewport().update(width, height, true);
+		interfaceView.resize(width, height);
 	}
 }

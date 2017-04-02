@@ -1,15 +1,18 @@
 package View;
 
 import Logic.GameObjectContainer;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Created by landfried on 31.03.17.
@@ -17,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 public class InterfaceView {
     private Stage stage;
     private ButtonGroup<TextButton> objectChooserGroup;
-
     public InterfaceView() {
         stage = new Stage();
 
@@ -44,7 +46,15 @@ public class InterfaceView {
         textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
         textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
         textButtonStyle.font = skin.getFont("default");
+
+        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
+        buttonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
+        buttonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
+        buttonStyle.checked = skin.newDrawable("white", Color.DARK_GRAY);
+        buttonStyle.over = skin.newDrawable("white", Color.DARK_GRAY);
+
         skin.add("default", textButtonStyle);
+        skin.add("default", buttonStyle);
 
         /*
         // Create a table that fills the screen. Everything else will go inside this table.
@@ -55,9 +65,10 @@ public class InterfaceView {
 
 
         VerticalGroup rootGroup = new VerticalGroup();
-        rootGroup.setFillParent(true);
+        //rootGroup.setFillParent(true);
         rootGroup.left();
-        stage.addActor(rootGroup);
+
+
 
 
         // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
@@ -65,6 +76,7 @@ public class InterfaceView {
         final TextButton button2 = new TextButton("SmallResidence", skin);
         final TextButton button3 = new TextButton("Wood", skin);
         final TextButton button4 = new TextButton("Stone", skin);
+
 
         objectChooserGroup = new ButtonGroup<>();
         objectChooserGroup.add(button1);
@@ -78,6 +90,35 @@ public class InterfaceView {
         rootGroup.addActor(button2);
         rootGroup.addActor(button3);
         rootGroup.addActor(button4);
+
+
+
+        int bgWidth = 100;
+        int bgHeight = 100; //Gdx.graphics.getHeight();
+        Pixmap backgroundPixmap = new Pixmap(bgWidth, bgHeight, Pixmap.Format.RGBA8888);
+        //backgroundPixmap.setColor(1, 1, 1, .5f);
+        //backgroundPixmap.fillCircle(100, 10, 20);
+        //backgroundPixmap.fillRectangle(110, 110, bgWidth, bgHeight);
+        Texture backgroundTexture = new Texture(backgroundPixmap, Pixmap.Format.RGB888, false);
+        TextureRegion backgroundRegion = new TextureRegion(backgroundTexture, bgWidth, bgHeight);
+        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(backgroundRegion);
+
+        Table menuTable = new Button(skin);
+        Table mapTable = new Table();
+
+        menuTable.add(rootGroup);
+        menuTable.setBackground(backgroundDrawable);
+
+        Table rootTable = new Table();
+        rootTable.add(menuTable);
+        rootTable.add(mapTable);
+        rootTable.setFillParent(true);
+        rootTable.left().top();
+
+
+        //rootTable.setBackground(backgroundDrawable);
+
+        stage.addActor(rootTable);
 
 
 
@@ -99,5 +140,11 @@ public class InterfaceView {
 
         stage.act();
         stage.draw();
+    }
+
+    public void resize(int width, int height) {
+        //stage.getActors().first().setSize(width, height);
+        stage.getViewport().update(width, height, true);
+
     }
 }
