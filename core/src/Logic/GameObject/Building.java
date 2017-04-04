@@ -12,12 +12,14 @@ import java.util.Map;
  * Created by landfried on 03.02.17.
  */
 public abstract class Building extends GameObject {
-    protected BuildingState state;
+    BuildingState state;
     private List<ResourceType> shippedResources;
     private List<Resource> storedResources;
     protected Map<ResourceType, Integer> constructionResources;
 
-
+    public BuildingState getState() {
+        return state;
+    }
 
     public Building() {
         super();

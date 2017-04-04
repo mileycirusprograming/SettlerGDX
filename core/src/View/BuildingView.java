@@ -1,6 +1,7 @@
 package View;
 
 import Logic.GameObject.Building;
+import Logic.GameObject.BuildingState;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
@@ -31,7 +32,6 @@ public class BuildingView {
         layer = viewComponents.getLayer(viewComponents.BUILDING_LAYER);
         buildings = viewComponents.gameObjectContainer.getBuildings();
 
-        setTiles();
     }
 
     public void update() {
@@ -39,15 +39,24 @@ public class BuildingView {
         drawAllBuildings();
     }
 
- private void setTiles() {
-     tiles[0][1] = viewComponents.tileSet.getTile(4);
-     tiles[1][1] = viewComponents.tileSet.getTile(5);
-     tiles[0][0] = viewComponents.tileSet.getTile(9);
-     tiles[1][0] = viewComponents.tileSet.getTile(10);
+ private void setTiles(Building building) {
+     if (building.getState() == BuildingState.CONSTRUCT) {
+         tiles[0][1] = viewComponents.tileSet.getTile(4);
+         tiles[1][1] = viewComponents.tileSet.getTile(5);
+         tiles[0][0] = viewComponents.tileSet.getTile(9);
+         tiles[1][0] = viewComponents.tileSet.getTile(10);
+     }
+     else {
+         tiles[0][1] = viewComponents.tileSet.getTile(2);
+         tiles[1][1] = viewComponents.tileSet.getTile(3);
+         tiles[0][0] = viewComponents.tileSet.getTile(7);
+         tiles[1][0] = viewComponents.tileSet.getTile(8);
+     }
  }
 
 
     private void putCells(Building building) {
+        setTiles(building);
         for (int x=0; x<xWidth; x++) {
             for (int y=0; y<yWidth; y++) {
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
