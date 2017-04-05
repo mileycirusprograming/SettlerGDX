@@ -95,9 +95,6 @@ public class SettlerCarrier extends Settler {
         return (mission instanceof MissionCarrier);
     }
 
-    public ObjectPosition getDirection() {
-        return direction;
-    }
 
     @Override
     protected void initMission() {

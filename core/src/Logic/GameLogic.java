@@ -121,17 +121,12 @@ public class GameLogic implements Runnable {
             if (settler.nextMoveTime > currentTime)
                 continue;
 
-            if (settler instanceof SettlerCarrier) {
-                SettlerCarrier carrier = (SettlerCarrier)settler;
+            ObjectPosition delta = new ObjectPosition(settler.getPosition());
+            ObjectPosition dir = new ObjectPosition(settler.getDirection());
+            delta.x = (Math.abs(dir.x) >= Math.abs(dir.y)) ? sign(dir.x) : 0;
+            delta.y = (Math.abs(dir.x) < Math.abs(dir.y)) ? sign(dir.y) : 0;
+            settler.move(delta);
 
-                ObjectPosition delta = new ObjectPosition(carrier.getPosition());
-                ObjectPosition dir = new ObjectPosition(carrier.getDirection());
-                delta.x = (Math.abs(dir.x) >= Math.abs(dir.y)) ? sign(dir.x) : 0;
-                delta.y = (Math.abs(dir.x) < Math.abs(dir.y)) ? sign(dir.y) : 0;
-
-                carrier.move(delta);
-
-            }
             settler.nextMoveTime += 200;
         }
     }

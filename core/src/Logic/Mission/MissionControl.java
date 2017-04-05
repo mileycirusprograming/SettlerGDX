@@ -42,6 +42,10 @@ public class MissionControl {
 
                 }
             }
+
+            if (building.waitingForContruction()) {
+                unassignedMissions.add(new MissionBuilder(building));
+            }
         }
 
     }
@@ -65,97 +69,44 @@ public class MissionControl {
         return null;
     }
 
+    private Settler getFreeSettler(Class<? extends Settler> settlerType) {
+        for (Settler settler : objectAccessor.getSettlers())
+            if (settlerType.isInstance(settler))
+                if (!settler.isBusy())
+                    return settler;
+        return null;
+    }
+
     public void distributeMissions() {
         for (Mission mission : unassignedMissions) {
             if (mission instanceof MissionCarrier) {
-                SettlerCarrier freeCarrier = getFreeCarrier();
+                //SettlerCarrier freeCarrier = getFreeCarrier();
+                SettlerCarrier freeCarrier = (SettlerCarrier)getFreeSettler(SettlerCarrier.class);
                 if (freeCarrier != null) {
                     freeCarrier.setMission(mission);
                     assignedMissions.add(mission);
                 }
+            }
+
+            if (mission instanceof MissionBuilder) {
+                SettlerBuilder freeBuilder = (SettlerBuilder)getFreeSettler(SettlerBuilder.class);
+                if (freeBuilder != null) {
+                    freeBuilder.setMission(mission);
+                    assignedMissions.add(mission);                }
             }
         }
         unassignedMissions.removeAll(assignedMissions);
     }
 
     public void removeTerminatedMissions() {
+        assignedMissions.removeIf(mission -> mission.getState() == MissionState.COMPLETE || mission.getState() == MissionState.FAIL);
+        /*
         for (Iterator<Mission> iterator = assignedMissions.iterator(); iterator.hasNext();) {
             Mission mission = iterator.next();
             if (mission.getState() == MissionState.COMPLETE || mission.getState() == MissionState.FAIL)
                 iterator.remove();
         }
+        */
     }
 
-    /*
-    public void prepareMissions() {
-
-        ArrayList<Mission> workingMissions = new ArrayList<>();
-        for (Mission mission : newMissions) {
-            if (mission.getState() == MissionState.ASSIGN)
-                mission.abort();
-            else
-                workingMissions.add(mission);
-        }
-
-        newMissions = workingMissions;
-
-        for (Building building : objectAccessor.getBuildings()) {
-            for (ResourceType neededRessource : building.getNeededResources().keySet()) {
-                if (getFreeResource(neededRessource) == null)
-                    continue;
-
-                for (int i = 0; i < building.getNeededResources().get(neededRessource); i++) {
-                    Resource freeResource = getFreeResource(neededRessource);
-                    if (freeResource == null)
-                        break;
-                    newMissions.add(new MissionCarrier(building, freeResource));
-                }
-            }
-        }
-    }
-
-    private Resource getFreeResource(ResourceType type) {
-        for (Resource resource : objectAccessor.getResources())
-            if (resource.getType().equals(type) && !resource.isUsed())
-                return resource;
-        return null;
-    }
-
-    private SettlerCarrier getFreeCarrier() {
-
-        for (Settler settler : objectAccessor.getSettlers())
-            if (settler instanceof SettlerCarrier)
-                if (!((SettlerCarrier)settler).isBusy())
-                    return (SettlerCarrier)settler;
-        return null;
-    }
-
-    public void distributeMissions() {
-
-        for (Mission mission : newMissions) {
-            if (mission instanceof MissionCarrier) {
-                SettlerCarrier freeCarrier = getFreeCarrier();
-                if (freeCarrier != null) {
-                    freeCarrier.setMission(mission);
-                    //workingMissions.add(mission);
-                }
-            }
-        }
-    }
-
-    public void removeTerminatedMissions() {
-        ArrayList<Mission> newWorkingMissions = new ArrayList<>();
-        for (Mission mission : newMissions) {
-            if (mission.getState() != MissionState.COMPLETE && mission.getState() != MissionState.FAIL)
-                newWorkingMissions.add(mission);
-        }
-        newMissions = newWorkingMissions;
-    }
-
-
-    public List<Mission> getMissions() {
-        return newMissions;
-    }
-
-    */
 }

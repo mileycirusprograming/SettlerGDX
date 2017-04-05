@@ -73,9 +73,10 @@ public class InterfaceView {
 
         // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
         final TextButton button1 = new TextButton("Carrier", skin);
-        final TextButton button2 = new TextButton("SmallResidence", skin);
-        final TextButton button3 = new TextButton("Wood", skin);
-        final TextButton button4 = new TextButton("Stone", skin);
+        final TextButton button2 = new TextButton("Builder", skin);
+        final TextButton button3 = new TextButton("SmallResidence", skin);
+        final TextButton button4 = new TextButton("Wood", skin);
+        final TextButton button5 = new TextButton("Stone", skin);
 
 
         objectChooserGroup = new ButtonGroup<>();
@@ -83,6 +84,7 @@ public class InterfaceView {
         objectChooserGroup.add(button2);
         objectChooserGroup.add(button3);
         objectChooserGroup.add(button4);
+        objectChooserGroup.add(button5);
         objectChooserGroup.setMaxCheckCount(1);
         objectChooserGroup.setMinCheckCount(1);
 
@@ -90,6 +92,7 @@ public class InterfaceView {
         rootGroup.addActor(button2);
         rootGroup.addActor(button3);
         rootGroup.addActor(button4);
+        rootGroup.addActor(button5);
 
 
 

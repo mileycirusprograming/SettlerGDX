@@ -7,8 +7,7 @@ import Logic.Mission.MissionBuilder;
  * Created by landfried on 30.01.17.
  */
 public class SettlerBuilder extends Settler {
-    private ObjectPosition destination;
-    private final ObjectPosition direction = new ObjectPosition();
+    //private final ObjectPosition direction = new ObjectPosition();
     private boolean resourceReached;
     private  boolean buildingReached;
     private enum State {WAITING, DEST_BUILDING, REACHED_BUILDING, BUILD, DONE}
@@ -50,6 +49,9 @@ public class SettlerBuilder extends Settler {
                 state = State.BUILD;
                 break;
             case BUILD:
+                getMissionBuilder().getBuilding().construct();
+                if (getMissionBuilder().getBuilding().getState() == BuildingState.BUILT)
+                    state = State.DONE;
                 break;
             case DONE:
                 finishMission();
@@ -68,9 +70,9 @@ public class SettlerBuilder extends Settler {
         updateState();
         updateDestination();
         updateDirection();
+
     }
 
-    // sollten nciht sowieso nur SettlerCarrier MissionCarriers bekommen und für alles andere genau so?
     @Override
     public boolean isCorrectMission(Mission mission) {
         return (mission instanceof MissionBuilder);

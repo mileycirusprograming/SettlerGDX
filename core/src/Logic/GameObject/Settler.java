@@ -23,6 +23,10 @@ public abstract class Settler extends GameObject {
 
     }
 
+    public ObjectPosition getDirection() {
+        return direction;
+    }
+
     public abstract void update();
     protected abstract boolean isCorrectMission(Mission mission);
     protected abstract void initMission();

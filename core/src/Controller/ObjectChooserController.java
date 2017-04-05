@@ -36,6 +36,8 @@ public class ObjectChooserController extends ChangeListener {
 
         if (textButton.getLabel().textEquals("Carrier"))
             tool = new CarrierTool();
+        if (textButton.getLabel().textEquals("Builder"))
+            tool = new BuilderTool();
         if (textButton.getLabel().textEquals("SmallResidence"))
             tool = new SmallResidenceTool();
         if (textButton.getLabel().textEquals("Wood"))
@@ -54,6 +56,18 @@ public class ObjectChooserController extends ChangeListener {
         public void place(int screenX, int screenY) {
             ObjectPosition worldCoordinates = viewComponents.getWorldCoordinates(screenX, screenY);
             SettlerCarrier settler = new SettlerCarrier();
+            settler.getPosition().x = worldCoordinates.x;
+            settler.getPosition().y = worldCoordinates.y;
+            settler.setNationId(0);
+            gameObjectContainer.addSettler(settler);
+        }
+    }
+
+    private class BuilderTool extends Tool {
+        @Override
+        public void place(int screenX, int screenY) {
+            ObjectPosition worldCoordinates = viewComponents.getWorldCoordinates(screenX, screenY);
+            SettlerBuilder settler = new SettlerBuilder();
             settler.getPosition().x = worldCoordinates.x;
             settler.getPosition().y = worldCoordinates.y;
             settler.setNationId(0);

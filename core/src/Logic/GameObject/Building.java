@@ -3,10 +3,7 @@ package Logic.GameObject;
 import Logic.Mission.Mission;
 import Logic.Mission.MissionCarrier;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by landfried on 03.02.17.
@@ -16,6 +13,7 @@ public abstract class Building extends GameObject {
     private List<ResourceType> shippedResources;
     private List<Resource> storedResources;
     protected Map<ResourceType, Integer> constructionResources;
+    private int constructionRate;
 
     public BuildingState getState() {
         return state;
@@ -28,6 +26,8 @@ public abstract class Building extends GameObject {
         shippedResources = new ArrayList<>();
         storedResources = new ArrayList<>();
         constructionResources = new HashMap<>();
+
+        constructionRate = 0;
     }
 
     public abstract void update();
@@ -37,7 +37,18 @@ public abstract class Building extends GameObject {
         for (ResourceType type : constructionResources.keySet()) {
             missingResources.put(type, constructionResources.get(type) - countAllResources(type));
         }
+
+        // TODO leere entfernen
+
         return missingResources;
+    }
+
+    private int countStoredResources(ResourceType countedType) {
+        int result = 0;
+        for (Resource resource : storedResources)
+            if (resource.getType() == countedType)
+                result++;
+        return result;
     }
 
     private int countAllResources(ResourceType countedType) {
@@ -46,9 +57,7 @@ public abstract class Building extends GameObject {
             if (type == countedType)
                 result++;
 
-        for (Resource resource : storedResources)
-            if (resource.getType() == countedType)
-                result++;
+        result += countStoredResources(countedType);
 
         return result;
     }
@@ -87,5 +96,22 @@ public abstract class Building extends GameObject {
                     break;
             }
         }
+    }
+
+    public boolean waitingForContruction() {
+        if (state.equals(BuildingState.CONSTRUCT))
+            if (!storedResources.isEmpty())
+                return true;
+        return  false;
+    }
+
+    public void construct() {
+        if (constructionRate < Integer.MAX_VALUE) {
+            if (getNeededResources().isEmpty() && shippedResources.isEmpty())
+                constructionRate += 1;
+        } else {
+            state = BuildingState.BUILT;
+        }
+
     }
 }

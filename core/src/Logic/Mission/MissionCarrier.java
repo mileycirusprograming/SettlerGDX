@@ -18,11 +18,6 @@ public class MissionCarrier extends Mission {
     }
 
     @Override
-    public void begin() {
-        super.begin();
-    }
-
-    @Override
     public void abort() {
         if (getState() == MissionState.WORK)
         super.abort();

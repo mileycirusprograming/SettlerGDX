@@ -1,6 +1,8 @@
 package View;
 
 import Logic.GameObject.Settler;
+import Logic.GameObject.SettlerBuilder;
+import Logic.GameObject.SettlerCarrier;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
@@ -16,7 +18,7 @@ public class SettlerView {
     private TiledMapTile tile;
     private ArrayList<TiledMapTileLayer.Cell> cells;
     private TiledMapTileLayer layer;
-    private final int tileIndex = 11;
+    private int tileIndex = 11;
 
     private List<Settler> settlers;
 
@@ -37,6 +39,7 @@ public class SettlerView {
 
     private void putCell(Settler settler) {
         TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+        setTile(settler);
         cell.setTile(tile);
         cells.add(cell);
         layer.setCell(settler.getPosition().x, settler.getPosition().y, cell);
@@ -52,6 +55,14 @@ public class SettlerView {
     private void drawAllSettlers() {
         for (Settler settler : settlers)
             putCell(settler);
+    }
+
+    private  void setTile(Settler settler) {
+        if (settler instanceof SettlerCarrier)
+            tileIndex = 11;
+        if (settler instanceof SettlerBuilder)
+            tileIndex = 16;
+        tile = viewComponents.tileSet.getTile(tileIndex);
     }
 
 }
