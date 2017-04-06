@@ -38,9 +38,9 @@ public abstract class Building extends GameObject {
             missingResources.put(type, constructionResources.get(type) - countAllResources(type));
         }
 
-        // TODO leere entfernen
+        missingResources.values().removeIf(resource -> resource <= 0);
 
-        return missingResources;
+            return missingResources;
     }
 
     private int countStoredResources(ResourceType countedType) {
@@ -106,7 +106,7 @@ public abstract class Building extends GameObject {
     }
 
     public void construct() {
-        if (constructionRate < Integer.MAX_VALUE) {
+        if (constructionRate < 50) {
             if (getNeededResources().isEmpty() && shippedResources.isEmpty())
                 constructionRate += 1;
         } else {

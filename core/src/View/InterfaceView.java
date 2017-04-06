@@ -119,6 +119,7 @@ public class InterfaceView {
         rootTable.left().top();
 
 
+
         //rootTable.setBackground(backgroundDrawable);
 
         stage.addActor(rootTable);
@@ -148,6 +149,5 @@ public class InterfaceView {
     public void resize(int width, int height) {
         //stage.getActors().first().setSize(width, height);
         stage.getViewport().update(width, height, true);
-
     }
 }

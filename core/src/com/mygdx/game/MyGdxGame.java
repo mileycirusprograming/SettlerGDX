@@ -27,7 +27,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 
-		//Gdx.graphics.setWindowedMode(1000, 500);
+		Gdx.graphics.setWindowedMode(1000, 500);
 
 
 		gameLogic = new GameLogic();
@@ -71,5 +71,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 //		interfaceView.getStage().getViewport().update(width, height, true);
 		interfaceView.resize(width, height);
+
 	}
 }
