@@ -3,6 +3,7 @@ package Logic.GameObject;
 import Logic.Mission.Mission;
 import Logic.Mission.MissionCarrier;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -31,6 +32,15 @@ public abstract class Building extends GameObject {
     }
 
     public abstract void update();
+
+    @Override
+    public HashMap<String, Serializable> getProperties() {
+        HashMap<String, Serializable> properties = new HashMap<>();
+        properties.putAll(super.getProperties());
+        properties.put("state", state);
+
+        return  properties;
+    }
 
     public Map<ResourceType, Integer> getConstructionResources() {
         HashMap<ResourceType, Integer> missingResources = new HashMap<>();
