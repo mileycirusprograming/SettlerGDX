@@ -43,7 +43,6 @@ public class SettlerView {
         cell.setTile(tile);
         cells.add(cell);
         layer.setCell(settler.getPosition().x, settler.getPosition().y, cell);
-        settler.moved = false;
     }
 
     private void clearCells() {

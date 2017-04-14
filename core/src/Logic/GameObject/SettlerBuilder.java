@@ -10,14 +10,16 @@ public class SettlerBuilder extends Settler {
     //private final ObjectPosition direction = new ObjectPosition();
     private boolean resourceReached;
     private  boolean buildingReached;
-    private enum State {WAITING, DEST_BUILDING, REACHED_BUILDING, BUILD, DONE}
-    private State state;
     public SettlerBuilder() {
         super();
     }
 
-    private void updateDestination() {
-        destination = new ObjectPosition(getPosition());
+    public SettlerBuilder(ObjectPosition position) {
+        super(position);
+    }
+
+    @Override
+    protected void updateDestination() {
         if (getMission() == null)
             return;
 
@@ -25,14 +27,15 @@ public class SettlerBuilder extends Settler {
             case WAITING:
                 break;
             case DEST_BUILDING:
-                destination = getMissionBuilder().getBuilding().getPosition();
+                setDestination(getMissionBuilder().getBuilding().getPosition());
                 break;
             case REACHED_BUILDING:
                 break;
         }
     }
 
-    private void updateState() {
+    @Override
+    protected void updateState() {
         if (getMission() == null)
             return;
 
@@ -42,7 +45,7 @@ public class SettlerBuilder extends Settler {
                     state = State.DEST_BUILDING;
                 break;
             case DEST_BUILDING:
-                if (destination.equals(getPosition()))
+                if (getDestination().equals(getPosition()))
                     state = State.REACHED_BUILDING;
                 break;
             case REACHED_BUILDING:
@@ -66,20 +69,8 @@ public class SettlerBuilder extends Settler {
     }
 
     @Override
-    public void update() {
-        updateState();
-        updateDestination();
-        updateDirection();
-
-    }
-
-    @Override
     public boolean isCorrectMission(Mission mission) {
         return (mission instanceof MissionBuilder);
-    }
-
-    public ObjectPosition getDirection() {
-        return direction;
     }
 
     @Override

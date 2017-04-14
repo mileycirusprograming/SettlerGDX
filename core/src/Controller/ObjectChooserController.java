@@ -55,9 +55,7 @@ public class ObjectChooserController extends ChangeListener {
         @Override
         public void place(int screenX, int screenY) {
             ObjectPosition worldCoordinates = viewComponents.getWorldCoordinates(screenX, screenY);
-            SettlerCarrier settler = new SettlerCarrier();
-            settler.getPosition().x = worldCoordinates.x;
-            settler.getPosition().y = worldCoordinates.y;
+            SettlerCarrier settler = new SettlerCarrier(worldCoordinates);
             settler.setNationId(0);
             gameObjectContainer.addSettler(settler);
         }
@@ -66,12 +64,12 @@ public class ObjectChooserController extends ChangeListener {
     private class BuilderTool extends Tool {
         @Override
         public void place(int screenX, int screenY) {
+
             ObjectPosition worldCoordinates = viewComponents.getWorldCoordinates(screenX, screenY);
-            SettlerBuilder settler = new SettlerBuilder();
-            settler.getPosition().x = worldCoordinates.x;
-            settler.getPosition().y = worldCoordinates.y;
+            SettlerBuilder settler = new SettlerBuilder(worldCoordinates);
             settler.setNationId(0);
             gameObjectContainer.addSettler(settler);
+
         }
     }
 

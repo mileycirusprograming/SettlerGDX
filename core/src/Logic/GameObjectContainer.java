@@ -43,7 +43,7 @@ public class GameObjectContainer {
 
     public void updateSettlers() {
         for (Settler settler : settlers)
-            settler.update();
+            settler.update(System.currentTimeMillis());
     }
 
     public void updateBuildings() {

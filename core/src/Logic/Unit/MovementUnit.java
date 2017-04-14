@@ -3,6 +3,8 @@ package Logic.Unit;
 import Logic.GameObject.ObjectPosition;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by landfried on 13.04.17.
@@ -16,6 +18,7 @@ public class MovementUnit {
     private int positionClaimed;
     private long moveDelayTime;
     private long lastMoveTime;
+    private int moved;
 
     public MovementUnit() {
         position = new ObjectPosition();
@@ -26,6 +29,11 @@ public class MovementUnit {
         positionClaimed = 0;
         moveDelayTime = Long.MAX_VALUE;
         lastMoveTime = System.currentTimeMillis();
+        moved = 1;
+    }
+
+    public void destroy() {
+        movementUnits.remove(this);
     }
 
     private static boolean isPositionOccupied(ObjectPosition position) {
@@ -35,6 +43,10 @@ public class MovementUnit {
                 return true;
             }
         return false;
+    }
+
+    public static List<MovementUnit> getMovementUnits() {
+        return movementUnits;
     }
 
     public void move() {
@@ -54,7 +66,11 @@ public class MovementUnit {
 
     public void move(long currentTime) {
         for (; lastMoveTime + moveDelayTime <= currentTime; lastMoveTime += moveDelayTime)
-            move();
+            if (position.equals(destination))
+                lastMoveTime = currentTime;
+            else
+                move();
+
     }
 
     protected void claimPosition() {
@@ -69,12 +85,15 @@ public class MovementUnit {
         direction.y = Integer.signum(deltaY);
     }
 
+
     public ObjectPosition getPosition() {
         return new ObjectPosition(position);
     }
 
     public void setPosition(ObjectPosition position) {
-        this.position = position;
+        if (!position.equals(this.position))
+            moved++;
+        this.position = new ObjectPosition(position);
         calculateDirection();
         movementBlocked = 0;
         positionClaimed = 0;
@@ -85,7 +104,7 @@ public class MovementUnit {
     }
 
     public void setDestination(ObjectPosition destination) {
-        this.destination = destination;
+        this.destination = new ObjectPosition(destination);
         calculateDirection();
     }
 
@@ -101,4 +120,17 @@ public class MovementUnit {
         return positionClaimed;
     }
 
+    public int getMoved() {
+        int tempMoved = moved;
+        moved = 0;
+        return tempMoved;
+    }
+
+    public long getMoveDelayTime() {
+        return moveDelayTime;
+    }
+
+    public void setMoveDelayTime(long moveDelayTime) {
+        this.moveDelayTime = moveDelayTime;
+    }
 }

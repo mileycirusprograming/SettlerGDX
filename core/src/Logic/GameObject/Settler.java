@@ -1,42 +1,100 @@
 package Logic.GameObject;
 
 import Logic.Mission.Mission;
+import Logic.Unit.MovementUnit;
 
 /**
  * Created by landfried on 30.01.17.
  */
 public abstract class Settler extends GameObject {
-    private boolean busy;
+    private boolean busy = false;
     private Mission mission;
-    public boolean moved;
-    public long nextMoveTime;
-    protected ObjectPosition direction;
-    protected ObjectPosition destination;
+    protected enum State {UNDEFINED, WAITING, DONE, DODGE, DEST_RESOURCE, REACHED_RESOURCE, DEST_BUILDING, REACHED_BUILDING, BUILD}
+    protected State state = State.WAITING;
+    private State childState = State.UNDEFINED;
+
+    protected MovementUnit movementUnit = new MovementUnit();
 
     public Settler() {
         super();
-        busy = false;
-        moved = false;
-        nextMoveTime = System.currentTimeMillis();
-        direction = new ObjectPosition();
-        destination = new ObjectPosition();
+        movementUnit = new MovementUnit();
+        setPosition(super.getPosition());
+        movementUnit.setDestination(getPosition());
+        movementUnit.setMoveDelayTime(150);
+    }
 
+    public Settler(ObjectPosition position) {
+        super();
+        setPosition(position);
+        setDestination(getPosition());
+        movementUnit.setMoveDelayTime(150);
     }
 
     public ObjectPosition getDirection() {
-        return direction;
+        return movementUnit.getDirection();
     }
 
-    public abstract void update();
+    @Override
+    public ObjectPosition getPosition() {
+        return movementUnit.getPosition();
+    }
+
+    @Override
+    public void setPosition(ObjectPosition position) {
+        movementUnit.setPosition(position);
+    }
+
+    public ObjectPosition getDestination() {
+        return movementUnit.getDestination();
+    }
+
+    public void setDestination(ObjectPosition destination) {
+        movementUnit.setDestination(destination);
+    }
+
+    protected abstract void updateState();
+
+    protected abstract void updateDestination();
+
+    private void parentUpdateState() {
+
+
+        switch (state) {
+            case DODGE:
+                if (getPosition().equals(getDestination()))
+                    initMission();
+//                    state = childState;
+
+                break;
+
+            default:
+                if (movementUnit.getPositionClaimed() > 0) {
+                    childState = state;
+                    state = State.DODGE;
+                }
+                break;
+        }
+
+    }
+
+    private void parentUpdateDestination() {
+        switch (state) {
+            case DODGE:
+                setDestination(getPosition().getRandomNeighbour());
+                break;
+        }
+    }
+
+    public void update(long currentTime) {
+        parentUpdateState();
+        parentUpdateDestination();
+        updateState();
+        updateDestination();
+        movementUnit.move(currentTime);
+
+    }
     protected abstract boolean isCorrectMission(Mission mission);
     protected abstract void initMission();
-
-    protected void updateDirection() {
-        int deltaX = destination.x - getPosition().x;
-        int deltaY = destination.y - getPosition().y;
-        direction.x = deltaX;
-        direction.y = deltaY;
-    }
 
     protected void finishMission() {
         mission.finish();
@@ -70,12 +128,6 @@ public abstract class Settler extends GameObject {
 
     public Mission getMission() {
         return mission;
-    }
-
-    public void move(ObjectPosition delta) {
-        getPosition().x += delta.x;
-        getPosition().y += delta.y;
-        moved = true;
     }
 
 }
