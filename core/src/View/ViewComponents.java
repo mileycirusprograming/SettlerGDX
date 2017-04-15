@@ -65,7 +65,7 @@ public class ViewComponents {
         float unitScale = 1 / 32f;
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         camera.setToOrtho(false, map.getProperties().get("width", Integer.class), map.getProperties().get("height", Integer.class));
-        camera.zoom = .1f;
+        camera.zoom = .05f;
 
         buildingBitmap = new HashMap<>();
 

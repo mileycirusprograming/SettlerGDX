@@ -3,6 +3,8 @@ package Logic.GameObject;
 import Logic.Mission.Mission;
 import Logic.Unit.MovementUnit;
 
+import java.util.EventListener;
+
 /**
  * Created by landfried on 30.01.17.
  */
@@ -12,22 +14,34 @@ public abstract class Settler extends GameObject {
     protected enum State {UNDEFINED, WAITING, DONE, DODGE, DEST_RESOURCE, REACHED_RESOURCE, DEST_BUILDING, REACHED_BUILDING, BUILD}
     protected State state = State.WAITING;
     private State childState = State.UNDEFINED;
-
     protected MovementUnit movementUnit = new MovementUnit();
 
     public Settler() {
         super();
-        movementUnit = new MovementUnit();
         setPosition(super.getPosition());
         movementUnit.setDestination(getPosition());
-        movementUnit.setMoveDelayTime(150);
+        init();
     }
 
     public Settler(ObjectPosition position) {
         super();
         setPosition(position);
         setDestination(getPosition());
+        init();
+    }
+
+    private void init() {
         movementUnit.setMoveDelayTime(150);
+        movementUnit.setEventListener(new Logic.Unit.EventListener() {
+            @Override
+            public void handle() {
+                handleMovement();
+            }
+        });
+    }
+
+    public void handleMovement() {
+
     }
 
     public ObjectPosition getDirection() {

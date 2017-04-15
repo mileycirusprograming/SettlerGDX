@@ -19,6 +19,7 @@ public class MovementUnit {
     private long moveDelayTime;
     private long lastMoveTime;
     private int moved;
+    private EventListener eventListener;
 
     public MovementUnit() {
         position = new ObjectPosition();
@@ -59,8 +60,10 @@ public class MovementUnit {
 
         if (isPositionOccupied(newPosition))
             movementBlocked++;
-        else
+        else {
             setPosition(newPosition);
+            eventListener.handle();
+        }
 
     }
 
@@ -132,5 +135,9 @@ public class MovementUnit {
 
     public void setMoveDelayTime(long moveDelayTime) {
         this.moveDelayTime = moveDelayTime;
+    }
+
+    public void setEventListener(EventListener eventListener) {
+        this.eventListener = eventListener;
     }
 }

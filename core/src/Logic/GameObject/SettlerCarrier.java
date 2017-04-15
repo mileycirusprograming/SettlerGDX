@@ -7,6 +7,7 @@ import Logic.Mission.MissionCarrier;
  * Created by landfried on 30.01.17.
  */
 public class SettlerCarrier extends Settler {
+    private Resource carriedResource;
 
     public SettlerCarrier() {
         super();
@@ -14,6 +15,12 @@ public class SettlerCarrier extends Settler {
 
     public SettlerCarrier(ObjectPosition position) {
         super(position);
+    }
+
+    @Override
+    public void handleMovement() {
+        if (carriedResource != null)
+            carriedResource.setPosition(getPosition());
     }
 
     @Override
@@ -52,18 +59,16 @@ public class SettlerCarrier extends Settler {
                     state = State.REACHED_RESOURCE;
                 break;
             case REACHED_RESOURCE:
-                getMissionCarrier().getResource().picked = true;
+                pickResource(getMissionCarrier().getResource());
                 if (getMissionCarrier().getResource().picked)
                     state = State.DEST_BUILDING;
                 break;
             case DEST_BUILDING:
-                getMissionCarrier().getResource().setPosition(new ObjectPosition(getPosition()));
                 if (getDestination().equals(getPosition()))
                     state = State.REACHED_BUILDING;
                 break;
             case REACHED_BUILDING:
-                getMissionCarrier().getResource().picked = false;
-                getMissionCarrier().getResource().setPosition(new ObjectPosition(getPosition()));
+                dropResource();
                 if (!getMissionCarrier().getResource().picked)
                     state = State.DONE;
                 break;
@@ -90,5 +95,17 @@ public class SettlerCarrier extends Settler {
     protected void initMission() {
         state = State.DEST_RESOURCE;
         updateDestination();
+    }
+
+    private void pickResource(Resource resource) {
+        if (getPosition().equals(resource.getPosition())) {
+            resource.picked = true;
+            carriedResource = resource;
+        }
+    }
+
+    private void dropResource() {
+        carriedResource.picked = false;
+        carriedResource = null;
     }
 }
