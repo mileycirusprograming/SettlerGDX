@@ -75,6 +75,19 @@ public class SettlerBuilder extends Settler {
 
     @Override
     protected void initMission() {
+        getMissionBuilder().getBuilding().builders++;
+        state = State.DEST_BUILDING;
+        updateDestination();
+    }
+
+    @Override
+    protected void finishMission() {
+        getMissionBuilder().getBuilding().builders--;
+        super.finishMission();
+    }
+
+    @Override
+    protected void continueMission() {
         state = State.DEST_BUILDING;
         updateDestination();
     }

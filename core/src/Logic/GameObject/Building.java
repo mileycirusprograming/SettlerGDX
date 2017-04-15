@@ -15,6 +15,7 @@ public abstract class Building extends GameObject {
     private List<Resource> storedResources;
     protected Map<ResourceType, Integer> constructionResources;
     private int constructionRate;
+    public int builders;
 
     public BuildingState getState() {
         return state;
@@ -29,9 +30,12 @@ public abstract class Building extends GameObject {
         constructionResources = new HashMap<>();
 
         constructionRate = 0;
+        builders = 0;
     }
 
-    public abstract void update();
+    public void update() {
+
+    }
 
     @Override
     public HashMap<String, Serializable> getProperties() {

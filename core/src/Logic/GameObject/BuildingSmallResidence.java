@@ -17,10 +17,4 @@ public class BuildingSmallResidence extends Building {
 
     }
 
-
-    @Override
-    public void update() {
-
-    }
-
 }

@@ -43,7 +43,7 @@ public class MissionControl {
                 }
             }
 
-            if (building.waitingForContruction()) {
+            if (building.waitingForContruction() && building.builders < 3) {
                 unassignedMissions.add(new MissionBuilder(building));
             }
         }

@@ -15,6 +15,7 @@ public abstract class Settler extends GameObject {
     protected State state = State.WAITING;
     private State childState = State.UNDEFINED;
     protected MovementUnit movementUnit = new MovementUnit();
+    private long dodgeReturn = System.currentTimeMillis();
 
     public Settler() {
         super();
@@ -75,16 +76,15 @@ public abstract class Settler extends GameObject {
 
         switch (state) {
             case DODGE:
-                if (getPosition().equals(getDestination()))
-                    initMission();
-//                    state = childState;
-
+                if (getPosition().equals(getDestination()) && System.currentTimeMillis() > dodgeReturn)
+                    continueMission();
                 break;
 
             default:
                 if (movementUnit.getPositionClaimed() > 0) {
                     childState = state;
                     state = State.DODGE;
+                    dodgeReturn = System.currentTimeMillis() + 300;
                 }
                 break;
         }
@@ -113,6 +113,11 @@ public abstract class Settler extends GameObject {
     protected void finishMission() {
         mission.finish();
         mission = null;
+    }
+
+    protected void continueMission() {
+        state = childState;
+        updateDestination();
     }
 
     public boolean isBusy() {
