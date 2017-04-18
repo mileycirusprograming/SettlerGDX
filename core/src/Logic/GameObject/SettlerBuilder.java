@@ -8,6 +8,7 @@ import Logic.Mission.MissionBuilder;
  */
 public class SettlerBuilder extends Settler {
     //private final ObjectPosition direction = new ObjectPosition();
+    //können hier und bei Carrier die booleans nicht mal raus?
     private boolean resourceReached;
     private  boolean buildingReached;
     private enum State {WAITING, DEST_BUILDING, REACHED_BUILDING, BUILD, DONE}
@@ -16,6 +17,7 @@ public class SettlerBuilder extends Settler {
         super();
     }
 
+    //warum wird denn jedes mal die relativ statische destination neu gesetzt?
     private void updateDestination() {
         destination = new ObjectPosition(getPosition());
         if (getMission() == null)

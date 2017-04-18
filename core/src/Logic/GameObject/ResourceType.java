@@ -5,5 +5,7 @@ package Logic.GameObject;
  */
 public enum ResourceType {
     WOOD,
-    STONE
+    STONE,
+    TRUNK,
+    Axe
 }

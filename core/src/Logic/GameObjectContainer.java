@@ -27,6 +27,7 @@ public class GameObjectContainer {
         settlers = new ArrayList<>();
         buildings = new ArrayList<>();
         resources = new ArrayList<>();
+        //für jede nationId eine Liste:
         nationSettlers = new HashMap<>();
         nationBuildings = new HashMap<>();
         nationResources = new HashMap<>();
@@ -161,6 +162,7 @@ public class GameObjectContainer {
         return propertyChanged.remove(objectType);
     }
 
+    //das könnte glaub ich auch aufm direkten weg gehen
     private void notifyChange(Class<? extends GameObject> objectType) {
         propertyChanged.add(objectType);
     }

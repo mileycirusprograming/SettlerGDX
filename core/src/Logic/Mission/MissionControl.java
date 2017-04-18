@@ -24,6 +24,8 @@ public class MissionControl {
         this.objectAccessor = objectAccessor;
     }
 
+    //ich glaube hundertprozent sollten die gebäude sagen, dass sie ne mission haben und die control sollte sich
+    //nicht die missionen zusammensuchen
     public void prepareMissions() {
         for (Mission mission : unassignedMissions)
             mission.abort();

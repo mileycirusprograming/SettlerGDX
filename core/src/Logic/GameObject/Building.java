@@ -61,6 +61,7 @@ public abstract class Building extends GameObject {
         return result;
     }
 
+    //hä?
     private int countAllResources(ResourceType countedType) {
         int result = 0;
         for (ResourceType type : shippedResources)
