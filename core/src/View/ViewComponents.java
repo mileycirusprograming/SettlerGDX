@@ -53,7 +53,7 @@ public class ViewComponents {
     public void init() {
 
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load("TestMap5.tmx", TiledMap.class);
+        assetManager.load("TestMap6.tmx", TiledMap.class);
 
         while (!assetManager.update()) {
         }
@@ -69,7 +69,7 @@ public class ViewComponents {
 
         buildingBitmap = new HashMap<>();
 
-        tileSet = map.getTileSets().getTileSet("TestMapSet6");
+        tileSet = map.getTileSets().getTileSet("TestMapSet7");
 
 
     }

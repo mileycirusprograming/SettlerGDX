@@ -17,4 +17,9 @@ public class BuildingSmallResidence extends Building {
 
     }
 
+    @Override
+    protected void produce() {
+
+    }
+
 }

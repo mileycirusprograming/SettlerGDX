@@ -18,14 +18,14 @@ public class SettlerView {
     private TiledMapTile tile;
     private ArrayList<TiledMapTileLayer.Cell> cells;
     private TiledMapTileLayer layer;
-    private int tileIndex = 11;
+    private int tileIndex = 20;
 
     private List<Settler> settlers;
 
 
     public SettlerView(ViewComponents viewComponents) {
         this.viewComponents = viewComponents;
-        tile = viewComponents.tileSet.getTile(tileIndex);
+//        tile = viewComponents.tileSet.getTile(tileIndex);
         cells = new ArrayList<>();
         layer = viewComponents.getLayer(viewComponents.SETTLER_LAYER);
         settlers = viewComponents.gameObjectContainer.getSettlers();
@@ -58,9 +58,9 @@ public class SettlerView {
 
     private  void setTile(Settler settler) {
         if (settler instanceof SettlerCarrier)
-            tileIndex = 11;
+            tileIndex = 21;
         if (settler instanceof SettlerBuilder)
-            tileIndex = 16;
+            tileIndex = 31;
         tile = viewComponents.tileSet.getTile(tileIndex);
     }
 

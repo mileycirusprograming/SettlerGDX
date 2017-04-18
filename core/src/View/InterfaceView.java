@@ -77,6 +77,8 @@ public class InterfaceView {
         final TextButton button3 = new TextButton("SmallResidence", skin);
         final TextButton button4 = new TextButton("Wood", skin);
         final TextButton button5 = new TextButton("Stone", skin);
+        final TextButton button6 = new TextButton("Sawmill", skin);
+
 
 
         objectChooserGroup = new ButtonGroup<>();
@@ -85,6 +87,7 @@ public class InterfaceView {
         objectChooserGroup.add(button3);
         objectChooserGroup.add(button4);
         objectChooserGroup.add(button5);
+        objectChooserGroup.add(button6);
         objectChooserGroup.setMaxCheckCount(1);
         objectChooserGroup.setMinCheckCount(1);
 
@@ -93,6 +96,7 @@ public class InterfaceView {
         rootGroup.addActor(button3);
         rootGroup.addActor(button4);
         rootGroup.addActor(button5);
+        rootGroup.addActor(button6);
 
 
 

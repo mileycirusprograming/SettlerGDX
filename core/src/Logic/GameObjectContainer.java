@@ -102,7 +102,17 @@ public class GameObjectContainer {
         refreshNationObjects();
     }
 
+    public void addProductionResources() {
+        for (Building building : buildings) {
+            for (Resource resource : building.producedResources) {
+                addResource(resource);
+            }
+        }
+    }
 
+    public void removeProcessedResources() {
+        resources.removeIf(resource -> resource.isProcessed());
+    }
 
 
 

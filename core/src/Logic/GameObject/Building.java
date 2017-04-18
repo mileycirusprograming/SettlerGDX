@@ -2,6 +2,7 @@ package Logic.GameObject;
 
 import Logic.Mission.Mission;
 import Logic.Mission.MissionCarrier;
+import com.sun.istack.internal.Nullable;
 
 import java.io.Serializable;
 import java.util.*;
@@ -14,6 +15,11 @@ public abstract class Building extends GameObject {
     private List<ResourceType> shippedResources;
     private List<Resource> storedResources;
     protected Map<ResourceType, Integer> constructionResources;
+    protected List<ResourceType> productionResources;
+    public List<Resource> producedResources;
+    private long productionTime = 5000;
+    private long nextProductionTime = System.currentTimeMillis();
+
     private int constructionRate;
     public int builders;
 
@@ -28,14 +34,21 @@ public abstract class Building extends GameObject {
         shippedResources = new ArrayList<>();
         storedResources = new ArrayList<>();
         constructionResources = new HashMap<>();
+        productionResources = new ArrayList<>();
+        producedResources = new ArrayList<>();
 
         constructionRate = 0;
         builders = 0;
     }
 
     public void update() {
-
+        if (System.currentTimeMillis() > nextProductionTime && state == BuildingState.BUILT) {
+            produce();
+            nextProductionTime = System.currentTimeMillis() + productionTime;
+        }
     }
+
+    protected abstract void produce();
 
     @Override
     public HashMap<String, Serializable> getProperties() {
@@ -57,7 +70,19 @@ public abstract class Building extends GameObject {
             return missingResources;
     }
 
-    private int countStoredResources(ResourceType countedType) {
+    public Map<ResourceType, Integer> getProductionResources() {
+        HashMap<ResourceType, Integer> producedResourcesMap = new HashMap<>();
+
+        for (Resource resource : producedResources) {
+            int amount = 8 - countStoredResources(resource.getType());
+            if (amount > 0)
+                producedResourcesMap.put(resource.getType(), amount);
+        }
+
+        return producedResourcesMap;
+    }
+
+        private int countStoredResources(ResourceType countedType) {
         int result = 0;
         for (Resource resource : storedResources)
             if (resource.getType() == countedType)
@@ -82,7 +107,7 @@ public abstract class Building extends GameObject {
                 return getConstructionResources();
 
             case BUILT:
-                return new HashMap<>();
+                return getProductionResources();
 
             case SLEEP:
                 return new HashMap<>();
@@ -126,6 +151,12 @@ public abstract class Building extends GameObject {
         } else {
             state = BuildingState.BUILT;
         }
+    }
 
+    protected Resource getStoredResource(ResourceType resourceType) {
+        for (Resource resource : storedResources)
+            if (resource.getType().equals(resourceType))
+                return resource;
+        return null;
     }
 }

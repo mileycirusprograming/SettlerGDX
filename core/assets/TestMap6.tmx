@@ -3,32 +3,12 @@
  <properties>
   <property name="blended tiles" value="3, 4, 8, 9"/>
  </properties>
- <tileset firstgid="1" name="TestMapSet6" tilewidth="32" tileheight="32" tilecount="20">
-  <image source="TestMapSet6.png" width="160" height="128"/>
-  <tile id="3">
-   <properties>
-    <property name="blended" value="true"/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="blended" value="true"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="blended" value="true"/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="blended" value="true"/>
-   </properties>
-  </tile>
+ <tileset firstgid="1" name="TestMapSet7" tilewidth="32" tileheight="32" tilecount="100">
+  <image source="TestMapSet7.png" width="320" height="320"/>
  </tileset>
  <layer name="Terrain" width="64" height="64">
   <data encoding="base64" compression="zlib">
-   eJzt2DESwyAMRFHcpM/9L5s+M7YBrZAQv9jSjN6CC7haaxchhBBCCCGEEEIk+fwlep4o90k9vNmr92Lx796Dwr5zB/jP9Svt+PfrwMP/1MX3Jif47+zRfazwj9ir9DC79xX+jd7/PnsHI508fWf1Z+pgJvjx4z/Tr7Djj3dE2vHHW6LcK/2K+7uHfYVf8X7hZVf7vd5vsvtn7m4Z7Ar/7N21gt9yd9/db327wJ+jg8xnH3+N84+/nn+kg5P9lvWz+3s6sK6v6uBuHU//Crd1LcX+eOx5j1+xpmpWz6hn3s3v2Wf0LNEdRM+BHz8hUfkBZo0/pg==
+   eJzt07ENwzAMBVG59hLZf8pUKQ1DMakjrSt+z3cAjzHG8ZJ9/hh9s379hFu/fv3MvWehBivNVyMbUOaMBlX8M+7oDt39TxvQ/qf2iA67+2caVPavaFDZrj+/wdv9dw06+DMbdPFnNejkz2jQzR/dYEf/r0GkfaU/qkFnf8UGO/tX26s10M+O9tMNaDvtr9CA9tMNaLt+tgHt1s82oM203wa8mfbbgDfr9wdovw3qNNC/bwParp9tQLvpBrSZbkB76Qa0lWxAG+kGtI/sQVuIJvStzjnnnOuxL9BcX3s=
   </data>
  </layer>
  <layer name="Resources" width="64" height="64">

@@ -9,6 +9,7 @@ public class Resource extends GameObject {
     private int occupants = 0;
     public boolean picked = false;
     public boolean moved = false;
+    private boolean processed = false;
 
     public Resource(ResourceType type) {
         this.type = type;
@@ -28,5 +29,13 @@ public class Resource extends GameObject {
 
     public void disclaim() {
         occupants--;
+    }
+
+    public void process() {
+        processed = true;
+    }
+
+    public boolean isProcessed() {
+        return processed;
     }
 }

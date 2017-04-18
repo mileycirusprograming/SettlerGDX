@@ -21,8 +21,9 @@ public class ResourceView {
     static
     {
         tileIndexMap = new HashMap<>();
-        tileIndexMap.put(ResourceType.WOOD, 12);
-        tileIndexMap.put(ResourceType.STONE, 13);
+        tileIndexMap.put(ResourceType.WOOD, 22);
+        tileIndexMap.put(ResourceType.STONE, 23);
+        tileIndexMap.put(ResourceType.PLANK, 24);
 
     }
     private HashMap<ResourceType, TiledMapTile> tileMap;

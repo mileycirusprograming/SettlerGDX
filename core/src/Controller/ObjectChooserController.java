@@ -44,6 +44,8 @@ public class ObjectChooserController extends ChangeListener {
             tool = new WoodTool();
         if (textButton.getLabel().textEquals("Stone"))
             tool = new StoneTool();
+        if (textButton.getLabel().textEquals("Sawmill"))
+            tool = new SawmillTool();
 
     }
 
@@ -103,6 +105,17 @@ public class ObjectChooserController extends ChangeListener {
             stone.getPosition().x = worldCoordinates.x;
             stone.getPosition().y = worldCoordinates.y;
             gameObjectContainer.addResource(stone);
+        }
+    }
+
+    private class SawmillTool extends Tool {
+        @Override
+        public void place(int screenX, int screenY) {
+            BuildingSawmill buildingSawmill = new BuildingSawmill();
+            ObjectPosition worldCoordinates = viewComponents.getWorldCoordinates(screenX, screenY);
+            buildingSawmill.getPosition().x = worldCoordinates.x;
+            buildingSawmill.getPosition().y = worldCoordinates.y;
+            gameObjectContainer.addBuilding(buildingSawmill);
         }
     }
 

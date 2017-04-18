@@ -43,14 +43,14 @@ public class BuildingView {
      if (building.getState() == BuildingState.CONSTRUCT) {
          tiles[0][1] = viewComponents.tileSet.getTile(4);
          tiles[1][1] = viewComponents.tileSet.getTile(5);
-         tiles[0][0] = viewComponents.tileSet.getTile(9);
-         tiles[1][0] = viewComponents.tileSet.getTile(10);
+         tiles[0][0] = viewComponents.tileSet.getTile(14);
+         tiles[1][0] = viewComponents.tileSet.getTile(15);
      }
      else {
          tiles[0][1] = viewComponents.tileSet.getTile(2);
          tiles[1][1] = viewComponents.tileSet.getTile(3);
-         tiles[0][0] = viewComponents.tileSet.getTile(7);
-         tiles[1][0] = viewComponents.tileSet.getTile(8);
+         tiles[0][0] = viewComponents.tileSet.getTile(12);
+         tiles[1][0] = viewComponents.tileSet.getTile(13);
      }
  }
 

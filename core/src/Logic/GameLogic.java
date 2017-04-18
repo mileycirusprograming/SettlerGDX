@@ -30,6 +30,8 @@ public class GameLogic implements Runnable {
         gameObjectContainer.updateNations();
         gameObjectContainer.updateSettlers();
         gameObjectContainer.updateBuildings();
+        gameObjectContainer.addProductionResources();
+        gameObjectContainer.removeProcessedResources();
 
         //settlerMovement();
 
@@ -53,30 +55,7 @@ public class GameLogic implements Runnable {
         }
     }
 
-    private void settlerMovement() {
-       /*
-        long currentTime = System.currentTimeMillis();
 
-        for (Settler settler : gameObjectContainer.getSettlers()) {
-            if (settler.nextMoveTime > currentTime)
-                continue;
-
-            ObjectPosition delta = new ObjectPosition(settler.getPosition());
-            ObjectPosition dir = new ObjectPosition(settler.getDirection());
-            delta.x = (Math.abs(dir.x) >= Math.abs(dir.y)) ? sign(dir.x) : 0;
-            delta.y = (Math.abs(dir.x) < Math.abs(dir.y)) ? sign(dir.y) : 0;
-            settler.move(delta);
-
-            settler.nextMoveTime += 200;
-        }
-        */
-    }
-
-    private int sign(int var0) {
-        if (var0 > 0) return 1;
-        if (var0 < 0) return -1;
-        return 0;
-    }
 
 
 }
